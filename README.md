@@ -1,6 +1,6 @@
 # cloudtest_webpack
 
-> 测试前段工程
+> 测试前端工程
 
 ## Build Setup
 
