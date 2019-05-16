@@ -5,10 +5,11 @@ import CsvSetDataConfig from "../views/configelement/CsvDataSetConfig.vue";
 import UserDefinedConfig from "../views/configelement/UserDefinedConfig.vue";
 import TestPlan from "../views/plan/TestPlan.vue";
 import ThreadGroup from "../views/threads/ThreadGroup.vue";
+import ViewResultsTree from "../views/listener/ViewResultsTree.vue";
 
 export default [
   {
-    path: "/", //基础信息
+    path: "/", //dashboard页面
     component: DashBoard,
   },{
     path: "/controller/foreachcontroller", //模块说明
@@ -27,5 +28,8 @@ export default [
   },{
     path: "/threads/threadgroup", //模块说明
     component: ThreadGroup
+  },{
+      path:"/listener/viewresulttree",
+      component: ViewResultsTree
   }
 ];
