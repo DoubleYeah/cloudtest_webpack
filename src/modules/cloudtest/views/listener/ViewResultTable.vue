@@ -1,6 +1,6 @@
 <template>
-       <el-container>
-        <el-header height="10px">View Result Tree</el-header>
+   <el-container>
+        <el-header height="10px">View Result Table</el-header>
         <el-main>
              <div class="baseproperty">
                  <el-input v-model="input">
@@ -58,92 +58,48 @@
                         <el-button slot="reference">Configure</el-button>
                     </el-popover>
                   </fieldset>
-                  <div class="resultcontent" style="margin-top:10px">
-                        <el-col :span="12">
-                           <el-input>
-                            <template slot="prepend">Search</template>
-                           </el-input>   
-                        </el-col>&nbsp;
-                        <el-checkbox label="Case sensitive"></el-checkbox>
-                        <el-checkbox label="Regular exp."></el-checkbox>
-                        <el-button type="primary">Search</el-button>
-                        <el-button type="primary">Reset</el-button></br>                 
-                  </div></br>
-                  <el-container>
-                   <el-aside>
-                      <el-select  v-model="select" placeholder="请选择">
-                            <el-option value="Text">Text</el-option>
-					        <el-option value="Regexp Tester">Regexp Tester</el-option>
-					        <el-option value="Boundary Extractor Tester">Boundary Extractor Tester</el-option>
-					        <el-option value="CSS Selector Tester">CSS Selector Tester</el-option>
-                            <el-option value="Xpath Tester">Xpath Tester</el-option>
-                            <el-option value="Json path Tester">Json path Tester</el-option>
-                            <el-option value="HTML">HTML</el-option>
-                            <el-option value="HTML Source Formatted">HTML Source Formatted</el-option>
-                            <el-option value="HTML(download resources)">HTML</el-option>
-                            <el-option value="Document">Document</el-option>
-                            <el-option value="XML">XML</el-option>
-                            <el-option value="XPath2 Tester">XPath2 Tester</el-option>
-                            <el-option value="Browser">Browser</el-option>
-                      </el-select>  
-                      <el-card class="resultlist">
-                            <li v-for="o in 4" :key="o" class="text item">
-                                {{'列表内容 ' + o }}
-                            </li>
-                     </el-card>
+                  <el-table border :data="resultdata" height="500px" max-height="500px">
+                      <el-table-column prop="sample" label="Sample#"></el-table-column>
+                      <el-table-column prop="starttime" label="Start Time"></el-table-column>
+                      <el-table-column prop="threadname" label="Thread Name"></el-table-column>
+                      <el-table-column prop="label" label="Label"></el-table-column>
+                      <el-table-column prop="sampletime" label="Sample Time(ms)"></el-table-column>
+                      <el-table-column prop="status" label="Status"></el-table-column>
+                      <el-table-column prop="bytes" label="Bytes"></el-table-column>
+                      <el-table-column prop="sendbytes" label="Send Bytes"></el-table-column>
+                      <el-table-column prop="latency" label="Latency"></el-table-column>
+                      <el-table-column prop="connecttime" label="Connect Time(ms)"></el-table-column>
+                  </el-table>
+                  <div class="statistics">
                       <el-checkbox label="Scroll automatically?"></el-checkbox>
-                    </el-aside>  
-                    <el-main class="samplerresultcontent">
-                        <sampler-result></sampler-result>
-                    </el-main>
-                 </el-container>
-             </div>
-                   
-        </el-main>       
-      </el-container>
-    
+                      <el-checkbox label="Child Samples?"></el-checkbox>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      No of Samples {{nosamplesnum}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">Latest Sample {{latestsamplenum}}</font>&nbsp;&nbsp;<font color="#0000FF">Average {{average}}</font>&nbsp;&nbsp;<font color="#FF0000">Devation {{devation}}</font>
+
+                  </div>
+
+                </div>
+            </el-main>
+        </el-container>
+
 </template>
 
-<script>
-import samplerresult from './SamplerResult'
+
+<<script>
 export default {
-    name: "viewresulttree",
+    name:"ViewResultTable",
     data () {
         return {
-            input:"View Result Tree",
+            input:"View Result Table",
             input2:"",
             input3:"Write result to file/Read from file",
             checked:[],
-            select:""
+            select:"",
+            resultdata:[],
+            nosamplesnum:0,
+            latestsamplenum:0,
+            average:0,
+            devation:0
         };
-    },
-    components: {
-        'sampler-result': samplerresult
     }
-    
 }
 </script>
-
-<style>
-  div .baseproperty{
-      border: solid #dcdfe6;
-  }
-
-
-  .el-checkbox{
-      margin-top:10px;
-
-  }
-  .el-button{
-      margin-right:20px;
-  }
-  .el-select .el-input__inner {
-     width:300px
-  }
-  .resultlist{
-     height:400px;
-  }
-  .samplerresultcontent{
-     border: solid #dcdfe6;
-  }
-</style>
