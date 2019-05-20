@@ -5,7 +5,10 @@
         </el-aside>
         <el-container>
             <el-header></el-header>
-            <el-main></el-main>
+            <el-main>
+              <iframe src="/cloudtest/controller/foreachcontroller" style="width:100%;height:100%">
+              </iframe>
+            </el-main>
         </el-container>
     </el-container>
 </template>

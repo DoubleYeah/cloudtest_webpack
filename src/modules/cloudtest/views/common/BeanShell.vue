@@ -26,9 +26,9 @@
     <fieldset>
       <legend>{{input5}}</legend>
        <label text-align="center" width="100%"> Script:</label>
-       <el-input v-model="scriptdata" type="textarea">
-        
-      </el-input>
+       <div>
+          <markdown-editor style="width:100%;margin-top:10px"></markdown-editor>
+       </div>
     </fieldset>
   </div>
 
@@ -40,6 +40,7 @@
 </template>
 
 <script>
+  import markdown from "./markdown"
   export default {
     name: "BeanShell",
     data() {
@@ -54,6 +55,9 @@
         paramsdata: "",
         resetinterpreter: "false"
       };
+    },
+    components:{
+       "markdown-editor":markdown
     }
   }
 

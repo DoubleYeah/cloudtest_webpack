@@ -1,5 +1,7 @@
 <template>
+   <div height="100%">
     <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+   </div>
 </template>
 
 <script>
@@ -7,7 +9,7 @@ export default {
     data () {
         return {
             data: [{
-                label: '一级 1',
+                label: 'TestPlan',
                 children: [{
                     label: '二级 1-1',
                     children: [{

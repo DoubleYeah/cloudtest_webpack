@@ -11,6 +11,7 @@ import HttpHeaderManager from "../views/configelement/HttpHeaderManager.vue"
 import BeanShellPostProcessors from "../views/postprocessor/BeanShellPostProcessors.vue";
 import JsonExtractor from "../views/postprocessor/JsonExtractor.vue";
 import ResponseAssertion from "../views/assertion/ResponseAssertion.vue"
+import HttpRequest from "../views/sampler/HttpRequest.vue";
 
 export default [{
     path: "/", //dashboard页面
@@ -50,5 +51,8 @@ export default [{
   }, {
     path: "/assertion/responseassertion", //模块说明
     component: ResponseAssertion
+  }, {
+    path: "/sampler/httprequest", //模块说明
+    component: HttpRequest
   }
 ];
