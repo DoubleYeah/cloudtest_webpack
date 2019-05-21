@@ -3,10 +3,10 @@
         <el-header height="10px">{{input}}</el-header>
         <el-main>
              <div class="baseproperty">
-                 <el-input v-model="input">
+                 <el-input v-model="elementname">
                     <template slot="prepend">Name:</template>                
                  </el-input>
-                 <el-input v-model="input2" placeholder="">
+                 <el-input v-model="comments">
                      <template slot="prepend">comments:</template> 
                  </el-input>
              </div>
@@ -24,12 +24,12 @@
                          <el-button type="primary">Up</el-button>
                          <el-button type="primary">Down</el-button>
                     </el-button-group>
-                    <el-checkbox-group>
-                          <el-checkbox label="Run Thread Groups consecutively (i.e. one at time)"></el-checkbox></br>
-                          <el-checkbox label="Run TearDown Thread Groups after shutdown of main threads"></el-checkbox></br>
+                    <div style="text-align:left">
+                          <el-checkbox label="Run Thread Groups consecutively (i.e. one at time)" ></el-checkbox></br>
+                          <el-checkbox label="Run TearDown Thread Groups after shutdown of main threads" v-model="runteardownonshutdown"></el-checkbox></br>
                           <el-checkbox label="Function Test Mode (i.e. save Response Data and Sampler Data)"></el-checkbox></br>
                           <label>Selecting Functional TestMode may adversely affect perfomance</label>
-                    </el-checkbox-group>
+                    </div>
                     <div style="text-align:left">
                         Add directiory or jar to classpath &nbsp; &nbsp;<el-button-group>
                             <el-button type="primary">Browse...</el-button>
@@ -54,8 +54,27 @@ export default {
             input2:"",
             input3:"User Defined Variables",
             input4:"",
-            input5:""
+            input5:"",
+            pagedata:{},
+            elementname:"",
+            comments:"",
+            runteardownonshutdown:false,
+            checklist:[],
+            serialize_threadgroups:false
         };
+    },
+    mounted() {
+        this.getContentData()
+    },
+    methods: {
+        getContentData(){
+            var urldata=this.$route.query
+            this.pagedata=JSON.parse(urldata.content)
+            this.elementname=this.pagedata["data"]["propMap"]["TestElement.name"]["data"]["value"]
+            this.comments=this.pagedata["data"]["propMap"]["TestPlan.comments"]["data"]["value"]
+            this.runteardownonshutdown=this.pagedata["data"]["propMap"]["TestPlan.tearDown_on_shutdown"]["data"]["value"]
+            this.functional_mode=this.pagedata["data"]["propMap"]["TestPlan.functional_mode"]["data"]["value"]
+        }
     },
     
 }

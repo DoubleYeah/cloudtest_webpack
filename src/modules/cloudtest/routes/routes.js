@@ -14,8 +14,9 @@ import ResponseAssertion from "../views/assertion/ResponseAssertion.vue"
 import HttpRequest from "../views/sampler/HttpRequest.vue";
 
 export default [{
-    path: "/", //dashboard页面
+    path: "/cloudtest", //dashboard页面
     component: DashBoard,
+    name: "测试主页面",
   }, {
     path: "/controller/foreachcontroller", //模块说明
     component: ForeachController

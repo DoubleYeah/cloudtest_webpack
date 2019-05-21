@@ -1,64 +1,39 @@
 <template>
-   <div height="100%">
-    <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
-   </div>
+  <div>
+    <el-tree :data="treedata" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+  </div>
 </template>
 
 <script>
-export default {
-    data () {
-        return {
-            data: [{
-                label: 'TestPlan',
-                children: [{
-                    label: '二级 1-1',
-                    children: [{
-                    label: '三级 1-1-1'
-                    }]
-                }]
-                }, {
-                label: '一级 2',
-                children: [{
-                    label: '二级 2-1',
-                    children: [{
-                    label: '三级 2-1-1'
-                    }]
-                }, {
-                    label: '二级 2-2',
-                    children: [{
-                    label: '三级 2-2-1'
-                    }]
-                }]
-                }, {
-                label: '一级 3',
-                children: [{
-                    label: '二级 3-1',
-                    children: [{
-                    label: '三级 3-1-1'
-                    }]
-                }, {
-                    label: '二级 3-2',
-                    children: [{
-                    label: '三级 3-2-1'
-                    }]
-                }]
-            }],
-            defaultProps: {
-                children: 'children',
-                label: 'label'
-            }
+  export default {
+    data() {
+      return {
+
+        defaultProps: {
+          children: 'children',
+          label: 'label'
+
+
         }
+      }
     },
     methods: {
-        handleNodeClick (node) {
-            console.log(node);
-        }
+      handleNodeClick(node) {
+        //变更iframeurl
+        var content=JSON.stringify(node.content)
+        var url=node.url+"?content="+encodeURIComponent(content)
+        this.$emit('curl', url)
+        //传递iframedata
+      }
+    },
+
+    props: {
+      treedata: Array
     }
-}
+  }
+
 </script>
 
 <style scoped>
 
 </style>
-
-

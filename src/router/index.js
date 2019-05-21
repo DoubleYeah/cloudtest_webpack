@@ -6,7 +6,7 @@ Vue.use(Router)
 
 let router = new Router({
   mode: "history",
-  base: "/cloudtest",
+  base: "/admin",
   routes: [
     ...CloudTestRoutes,
   ]
@@ -17,5 +17,7 @@ let router = new Router({
 //     window._hmt.push(["_trackPageview", "/cloudtest" + to.fullPath]);
 //   }
 // });
+
+
 
 export default router;
