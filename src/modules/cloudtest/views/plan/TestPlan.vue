@@ -12,7 +12,7 @@
              </div>
              <div class="testelementproperty">
                   <label class="title">{{input3}}</label>
-                    <el-table  border style="width: 100%" height="400">
+                    <el-table  border style="width: 100%" height="400" :data="userdefinedlist">
                        <el-table-column prop="name" label="Name:"></el-table-column>
                        <el-table-column prop="value" label="Value"></el-table-column>
                     </el-table>
@@ -25,9 +25,9 @@
                          <el-button type="primary">Down</el-button>
                     </el-button-group>
                     <div style="text-align:left">
-                          <el-checkbox label="Run Thread Groups consecutively (i.e. one at time)" ></el-checkbox></br>
+                          <el-checkbox label="Run Thread Groups consecutively (i.e. one at time)" v-model="serialize_threadgroups"></el-checkbox></br>
                           <el-checkbox label="Run TearDown Thread Groups after shutdown of main threads" v-model="runteardownonshutdown"></el-checkbox></br>
-                          <el-checkbox label="Function Test Mode (i.e. save Response Data and Sampler Data)"></el-checkbox></br>
+                          <el-checkbox label="Function Test Mode (i.e. save Response Data and Sampler Data) " v-model="functional_mode"></el-checkbox></br>
                           <label>Selecting Functional TestMode may adversely affect perfomance</label>
                     </div>
                     <div style="text-align:left">
@@ -37,7 +37,7 @@
                             <el-button type="primary">Clear</el-button>
                         </el-button-group>
                     </div>
-                    <el-table  border style="width: 100%" height="200">
+                    <el-table  border style="width: 100%" height="200" :data="librarylist">
                        <el-table-column prop="library" label="Library" align="center"></el-table-column>
                     </el-table>
              </div>       
@@ -59,8 +59,10 @@ export default {
             elementname:"",
             comments:"",
             runteardownonshutdown:false,
-            checklist:[],
-            serialize_threadgroups:false
+            functional_mode:false,
+            serialize_threadgroups:false,
+            userdefinedlist:[],
+            librarylist:[]
         };
     },
     mounted() {
@@ -74,6 +76,23 @@ export default {
             this.comments=this.pagedata["data"]["propMap"]["TestPlan.comments"]["data"]["value"]
             this.runteardownonshutdown=this.pagedata["data"]["propMap"]["TestPlan.tearDown_on_shutdown"]["data"]["value"]
             this.functional_mode=this.pagedata["data"]["propMap"]["TestPlan.functional_mode"]["data"]["value"]
+            this.serialize_threadgroups=this.pagedata["data"]["propMap"]["TestPlan.serialize_threadgroups"]["data"]["value"]
+            var variabledata=this.pagedata["data"]["propMap"]["TestPlan.user_defined_variables"]["data"]["value"]["data"]["propMap"]["Arguments.arguments"]["data"]["value"]
+            this.inituserdefinedVariable(variabledata)
+            var librarydata=this.pagedata["data"]["propMap"]["TestPlan.user_define_classpath"]["data"]["value"].split(",")
+            for(var index in librarydata){
+                this.librarylist[index]={"library":librarydata[index]}
+            }
+            
+
+        },
+        inituserdefinedVariable(variabledata){
+            var i=0;
+            for(var variable in variabledata){
+                this.userdefinedlist[i]={"name":variabledata[variable]["data"]["value"]["data"]["propMap"]["Argument.name"]["data"]["value"],"value":variabledata[variable]["data"]["value"]["data"]["propMap"]["Argument.value"]["data"]["value"]}
+                i=i+1
+            }
+            console.log(this.userdefinedlist)
         }
     },
     
