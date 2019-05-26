@@ -55,11 +55,11 @@
         <div style="text-align:left">
           Add directiory or jar to classpath &nbsp; &nbsp;<el-button-group>
             <el-button type="primary">Browse...</el-button>
-            <el-button type="primary">Delete</el-button>
-            <el-button type="primary">Clear</el-button>
+            <el-button type="primary" @click="deletelibdata">Delete</el-button>
+            <el-button type="primary" @click="librarylist=[]">Clear</el-button>
           </el-button-group>
         </div>
-        <el-table border style="width: 100%" height="200" :data="librarylist">
+        <el-table border row-key="index" style="width: 100%" height="200" :data="librarylist" @row-click="getcurlibrowdata" highlight-current-row >
           <el-table-column prop="library" label="Library" align="center"></el-table-column>
         </el-table>
       </div>
@@ -78,6 +78,7 @@
     data() {
       return {
         currowdata: {}, //当前行的数据
+        currowlibdata:{},
         name: "",
         data: "",
         winflag: false,
@@ -121,7 +122,8 @@
         var librarydata = this.pagedata["data"]["propMap"]["TestPlan.user_define_classpath"]["data"]["value"].split(",")
         for (var index in librarydata) {
           this.librarylist[index] = {
-            "library": librarydata[index]
+            "library": librarydata[index],
+            "index":index
           }
         }
 
@@ -149,6 +151,10 @@
         this.data = row.value
         console.log(row)
         //console.log(column)
+      },
+      getcurlibrowdata(row, column, event){
+          this.currowlibdata = row
+          this.$refs.valuetable.setCurrentRow(row)
       },
       dblhandleCurrentChange(row, column, cell, event) {
         if (column.label == "Name:") {
@@ -210,6 +216,31 @@
            
         }
         console.log(this.userdefinedlist)
+        
+      },
+      deletelibdata(event) {
+        //删除当前选中行
+        if (!this.isEmptyObject(this.currowlibdata)){
+           //将本行删除
+           for(var rowindex in this.librarylist){
+             
+                if(rowindex==this.currowlibdata["index"]){
+                   this.librarylist.splice(rowindex,1)
+                   //将当前行置为空
+                   this.currowlibdata={}
+                   //调整index
+                   for(var i=rowindex;i<this.librarylist.length;i++){
+                      this.librarylist[i]["index"]=i
+                   } 
+                   break
+                }
+                
+                 
+              
+           }
+           
+        }
+        console.log(this.librarylist)
         
       },
       changeorder(ordertype,event){
