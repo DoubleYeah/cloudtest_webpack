@@ -1,6 +1,6 @@
 <template>
   <div id="main">
-    <mavon-editor v-model="value" :subfield="subfield" :placeholder="placeholderdata" :codeStyle="codestyle" :toolbarsFlag="subfield"> </mavon-editor>
+    <mavon-editor v-model="valuedata" :subfield="subfield" :placeholder="placeholderdata" :codeStyle="codestyle" :toolbarsFlag="subfield"> </mavon-editor>
   </div>
 </template>
 
@@ -10,7 +10,7 @@
   export default {
     data() {
       return {
-        value: '',
+        valuedata:value,
         codestyle:"github-gist",
         placeholderdata:" ",
         subfield:false,
@@ -50,6 +50,12 @@
           preview: false, // 预览
         }
       }
+    },
+    components:{
+      "mavon-editor":mavonEditor
+    },
+    props:{
+      value:String
     }
   }
 
