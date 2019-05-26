@@ -224,10 +224,12 @@
                  var swapdata=this.userdefinedlist[index]
                  this.userdefinedlist[index]=this.userdefinedlist[this.currowdata["index"]]
                  this.userdefinedlist[index]["index"]=index
-                 this.userdefinedlist[this.currowdata["index"]]=swapdata           
-                 this.userdefinedlist[this.currowdata["index"]]["index"]=swapdata["index"]+1
+                 this.userdefinedlist[index+1]=swapdata      
+                 this.userdefinedlist[index+1]["index"]=index+1
                  //将当前行置为现在的行数
-                
+                 this.currowdata["index"]=index
+                 this.$refs.valuetable.setCurrentRow(this.userdefinedlist[index])
+
 
                }
             }else{
@@ -238,11 +240,14 @@
                  var swapdata=this.userdefinedlist[index]
                  this.userdefinedlist[index]=this.userdefinedlist[this.currowdata["index"]]
                  this.userdefinedlist[index]["index"]=index
-                 this.userdefinedlist[this.currowdata["index"]]=swapdata           
-                 this.userdefinedlist[this.currowdata["index"]]["index"]=swapdata["index"]-1
+                 this.userdefinedlist[index-1]=swapdata           
+                 this.userdefinedlist[index-1]["index"]=index-1
+                 this.currowdata["index"]=index
+                 this.$refs.valuetable.setCurrentRow(this.userdefinedlist[index])
                }
             }
          }
+         console.log(this.currowdata)
          console.log(this.userdefinedlist)
       },
       isEmptyObject(obj) {
