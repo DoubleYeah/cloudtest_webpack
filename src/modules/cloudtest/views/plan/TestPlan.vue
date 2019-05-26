@@ -12,7 +12,7 @@
       </div>
       <div class="testelementproperty">
         <label class="title">{{input3}}</label>
-        <el-table border style="width: 100%" height="400" :data="userdefinedlist" @row-click="getcurrowdata"
+        <el-table border style="width: 100%" height="400" row-key="index" :data="userdefinedlist" @row-click="getcurrowdata"
           highlight-current-row @cell-dblclick="dblhandleCurrentChange" ref="valuetable">
           <el-table-column prop="name" label="Name:" align="center">
             <template slot-scope="scope">
@@ -216,26 +216,25 @@
          //变更顺序
          if (!this.isEmptyObject(this.currowdata)){
            //如果没有选中不变更
-            if(ordertype="up"){
+            if(ordertype=="up"){
                if(this.currowdata["index"]-1>=0){
                  //如果不是第一个，将前一个的值与当前行的值进行交换
-                 var index=this.currowdata["index"]-1
+                 var index=parseInt(this.currowdata["index"])-1
                  //交换值
                  var swapdata=this.userdefinedlist[index]
                  this.userdefinedlist[index]=this.userdefinedlist[this.currowdata["index"]]
                  this.userdefinedlist[index]["index"]=index
                  this.userdefinedlist[index+1]=swapdata      
                  this.userdefinedlist[index+1]["index"]=index+1
-                 //将当前行置为现在的行数
                  this.currowdata["index"]=index
-                 this.$refs.valuetable.setCurrentRow(this.userdefinedlist[index])
+                 
 
 
                }
             }else{
                //如果不是最后一个
                if(this.currowdata["index"]+1<this.userdefinedlist.length){
-                 var index=this.currowdata["index"]+1
+                 var index=parseInt(this.currowdata["index"])+1
                  //交换值
                  var swapdata=this.userdefinedlist[index]
                  this.userdefinedlist[index]=this.userdefinedlist[this.currowdata["index"]]
@@ -243,10 +242,13 @@
                  this.userdefinedlist[index-1]=swapdata           
                  this.userdefinedlist[index-1]["index"]=index-1
                  this.currowdata["index"]=index
-                 this.$refs.valuetable.setCurrentRow(this.userdefinedlist[index])
+                
+
                }
             }
          }
+         
+         //this.$refs.valuetable.setCurrentRow(this.userdefinedlist[this.currowdata["index"]])
          console.log(this.currowdata)
          console.log(this.userdefinedlist)
       },
