@@ -1,13 +1,13 @@
-ForEach Controller
-IF Controller
-TestPlan
-HTTP Sampler
-BeanShell
-Json Extractor
-Response Assertion
-Thread Group
-View Result as table
-View Result as tree
-Http Header Manager
-User Defined Variables
-csv data set config
+ForEach Controller  完成
+IF Controller 未完成
+TestPlan 完成
+HTTP Sampler 完成
+BeanShell 完成
+Json Extractor 完成
+Response Assertion 完成
+Thread Group 完成
+View Result as table 完成
+View Result as tree 完成
+Http Header Manager 完成
+User Defined Variables 完成
+csv data set config 完成
