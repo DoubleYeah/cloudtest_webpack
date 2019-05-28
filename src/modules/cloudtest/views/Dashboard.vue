@@ -277,6 +277,9 @@ export default {
     "left-tree": LeftTree,
     "test-plan": TestPlanVue
   },
+  created: function() {
+    this.getCurrentTreeData();
+  },
   methods: {
     curl: function(url) {
       // childValue就是子组件传过来的值
@@ -316,8 +319,23 @@ export default {
         return key;
       }
     },
-    TreetoArray() {
-      //将tree还愿成array
+    TreetoArray(arraytree, data) {
+      //将tree还原成array
+      for (var index in data) {
+        let item = {
+          id: data[index]["id"],
+          pid: data[index]["pid"],
+          content: data[index]["content"],
+          icon: data[index]["icon"],
+          url: data[index]["url"],
+          menuName: data[index]["menuName"],
+          className: data[index]["className"],
+          text: data[index]["text"]
+        };
+        arraytree.push(item);
+        let children = data[index]["children"]; //获取所有子节点
+        this.TreetoArray(arraytree, children);
+      }
     },
     getCurrentTreeData() {
       var url =
@@ -332,8 +350,12 @@ export default {
           console.log("成功", success);
           //data.success(success.body);
           var treedata = this.arrayToTree(success.body.itemlist, "id", "pid");
+          var arraytree = [];
+          this.data = treedata;
+          //this.TreetoArray(arraytree, treedata);
           //this.data = treedata;
           console.log(treedata);
+          console.log(arraytree);
         },
         function(error) {
           console.log("错误", error);

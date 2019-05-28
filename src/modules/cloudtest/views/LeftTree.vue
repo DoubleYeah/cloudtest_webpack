@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { components_map } from "../constants/constants.js";
 export default {
   data() {
     return {
@@ -18,9 +19,10 @@ export default {
     handleNodeClick(node) {
       //变更iframeurl
       var content = JSON.stringify(node.content);
-      var url = node.url + "?content=" + encodeURIComponent(content);
+      var url = node.url;
+      var node_component = components_map[node.className];
       //this.$emit('curl', url)
-      this.$emit("refreshComponent", node.component, content);
+      this.$emit("refreshComponent", node_component, content);
       //传递iframedata
     }
   },
