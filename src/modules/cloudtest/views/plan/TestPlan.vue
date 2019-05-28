@@ -44,12 +44,18 @@
           <el-button type="primary" @click="changeorder('down')">Down</el-button>
         </el-button-group>
         <div style="text-align:left">
-          <el-checkbox label="Run Thread Groups consecutively (i.e. one at time)" v-model="serialize_threadgroups">
-          </el-checkbox></br>
-          <el-checkbox label="Run TearDown Thread Groups after shutdown of main threads"
-            v-model="runteardownonshutdown"></el-checkbox></br>
-          <el-checkbox label="Function Test Mode (i.e. save Response Data and Sampler Data) " v-model="functional_mode">
-          </el-checkbox></br>
+          <el-row>
+            <el-checkbox label="Run Thread Groups consecutively (i.e. one at time)" v-model="serialize_threadgroups">
+            </el-checkbox>
+          </el-row>
+          <el-row>
+            <el-checkbox label="Run TearDown Thread Groups after shutdown of main threads"
+            v-model="runteardownonshutdown"></el-checkbox>
+          </el-row>
+          <el-row>
+            <el-checkbox label="Function Test Mode (i.e. save Response Data and Sampler Data) " v-model="functional_mode">
+            </el-checkbox>
+          </el-row>
           <label>Selecting Functional TestMode may adversely affect perfomance</label>
         </div>
         <div style="text-align:left">
@@ -74,6 +80,12 @@
 <script>
   import markdown from "../common/markdown"
   export default {
+    props:{
+      content:{
+        type: String,
+        required: true
+      }
+    },
     name: "TestPlan",
     data() {
       return {
@@ -106,8 +118,10 @@
     },
     methods: {
       getContentData() {
-        var urldata = this.$route.query
-        this.pagedata = JSON.parse(urldata.content)
+        //var urldata = this.$route.query
+        //this.pagedata = JSON.parse(urldata.content)
+        // props获取来自父控件的数据
+        this.pagedata = JSON.parse(this.content);
         this.elementname = this.pagedata["data"]["propMap"]["TestElement.name"]["data"]["value"]
         this.comments = this.pagedata["data"]["propMap"]["TestPlan.comments"]["data"]["value"]
         this.runteardownonshutdown = this.pagedata["data"]["propMap"]["TestPlan.tearDown_on_shutdown"]["data"]["value"]
