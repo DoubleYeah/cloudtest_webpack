@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-header height="10px">{{input}}</el-header>
+    <el-header height="1em">{{input}}</el-header>
     <el-main>
       <div class="baseproperty">
         <el-input v-model="elementname">
@@ -311,12 +311,14 @@
 </script>
 
 <style>
-  .el-main {
-    margin-top: 10px
+  .el-header {
+    font-size: 1.5em;
+    text-align: left;
+    font-weight: bold;
+    margin-top: 0.5em;
   }
 
   div .baseproperty {
-    border: solid #dcdfe6;
   }
 
   div .testelementproperty {
