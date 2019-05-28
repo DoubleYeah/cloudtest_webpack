@@ -5,36 +5,34 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-
-        defaultProps: {
-          children: 'children',
-          label: 'label'
-        }
+export default {
+  data() {
+    return {
+      defaultProps: {
+        children: "children",
+        label: "text"
       }
-    },
-    methods: {
-      handleNodeClick(node) {
-        //变更iframeurl
-        var content=JSON.stringify(node.content)
-        var url=node.url+"?content="+encodeURIComponent(content)
-        //this.$emit('curl', url)
-        this.$emit('refreshComponent', node.component, content);
-        //传递iframedata
-      }
-    },
-
-    props: {
-      treedata: Array
+    };
+  },
+  methods: {
+    handleNodeClick(node) {
+      //变更iframeurl
+      var content = JSON.stringify(node.content);
+      var url = node.url + "?content=" + encodeURIComponent(content);
+      //this.$emit('curl', url)
+      this.$emit("refreshComponent", node.component, content);
+      //传递iframedata
     }
-  }
+  },
 
+  props: {
+    treedata: Array
+  }
+};
 </script>
 
 <style scoped>
-.el-tree{
+.el-tree {
   background-color: #ecf0f5;
 }
 </style>
