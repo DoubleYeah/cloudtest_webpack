@@ -177,14 +177,6 @@
           row.edit_value = true
         }
       },
-
-      dblhandlecurrentsingleChange(row, column, cell, event) {
-        //  let tabledata=this.userdefinedlist
-        //  tabledata.forEach(function(item){
-        //      item.edit_name = false;
-        //      item.edit_value = false;
-        //  })
-      },
       handleedit(index, row) {
         console.log(index)
         console.log(row)
@@ -292,10 +284,9 @@
                }
             }
          }
-         
-         //this.$refs.valuetable.setCurrentRow(this.userdefinedlist[this.currowdata["index"]])
-         console.log(this.currowdata)
-         console.log(this.userdefinedlist)
+      },
+      commitdata(){
+        //收集所有data，将其转给主页面
       },
       isEmptyObject(obj) {
         for (var key in obj) {
