@@ -4,14 +4,14 @@
       <left-tree v-on:curl="curl" v-on:refreshComponent="refreshComponent" :treedata="data"></left-tree>
     </el-aside>
     <el-container>
-      <el-header></el-header>
-      <el-main>
-        <!-- <iframe :src="curls" style="width:100%;height:100%">
-        </iframe>-->
-        <keep-alive>
-          <component v-bind:is="currentContentComponent" :content="currentContent"></component>
-        </keep-alive>
-      </el-main>
+        <el-header></el-header>
+        <el-main>
+            <!-- <iframe :src="curls" style="width:100%;height:100%">
+            </iframe> -->
+            <keep-alive>
+            <component v-bind:is="currentContentComponent" :content="currentContent" class="base-info"></component>
+            </keep-alive>
+        </el-main>
     </el-container>
   </el-container>
 </template>
@@ -391,5 +391,10 @@ export default {
 .el-aside {
   border: solid #dcdfe6;
   border-width: 0 0 1px 1px;
+}
+.base-info{
+    background-color: #EBEEF5;
+    box-shadow: 0.1em 0.1em 0.3em #838a96;
+    margin: 0.5em;
 }
 </style>
