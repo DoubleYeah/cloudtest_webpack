@@ -17,9 +17,9 @@
 </template>
 
 <script>
-import LeftTree from "./LeftTree";
-import TestPlanVue from "./plan/TestPlan.vue";
 
+import TestPlanVue from "./plan/TestPlan.vue";
+import { components_def_map } from "../constants/constants.js";
 export default {
   name: "Dashboard",
   data() {
@@ -273,12 +273,9 @@ export default {
       currentContent: ""
     };
   },
-  components: {
-    "left-tree": LeftTree,
-    "test-plan": TestPlanVue
-  },
+  components: components_def_map,
   created: function() {
-    this.getCurrentTreeData();
+    //this.getCurrentTreeData();
   },
   methods: {
     curl: function(url) {
@@ -351,7 +348,7 @@ export default {
           //data.success(success.body);
           var treedata = this.arrayToTree(success.body.itemlist, "id", "pid");
           var arraytree = [];
-          this.data = treedata;
+          //this.data = treedata;
           //this.TreetoArray(arraytree, treedata);
           //this.data = treedata;
           console.log(treedata);

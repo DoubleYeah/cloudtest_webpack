@@ -15,3 +15,35 @@ export const components_map = {
   "org.apache.jmeter.testbeans.gui.TestBeanGUI_org.apache.jmeter.modifiers.BeanShellPreProcessor":"beanshell-pre",
   "org.apache.jmeter.control.gui.ForeachControlPanel_org.apache.jmeter.control.ForeachController":"foreach-controller",
 }
+import ForeachController from "../views/controller/ForeachController.vue";
+import CsvSetDataConfig from "../views/configelement/CsvDataSetConfig.vue";
+import UserDefinedConfig from "../views/configelement/UserDefinedConfig.vue";
+import TestPlan from "../views/plan/TestPlan.vue";
+import ThreadGroup from "../views/threads/ThreadGroup.vue";
+import ViewResultsTree from "../views/listener/ViewResultsTree.vue";
+import ViewResultsTable from "../views/listener/ViewResultTable.vue";
+import HttpHeaderManager from "../views/configelement/HttpHeaderManager.vue"
+import BeanShellPostProcessors from "../views/postprocessor/BeanShellPostProcessors.vue";
+import BeanShellPreProcessors from "../views/preprocessor/BeanShellPreProcessors.vue";
+import JsonExtractor from "../views/postprocessor/JsonExtractor.vue";
+import ResponseAssertion from "../views/assertion/ResponseAssertion.vue"
+import HttpRequest from "../views/sampler/HttpRequest.vue";
+import LeftTree from "../views/LeftTree.vue";
+
+export const components_def_map={
+    "left-tree": LeftTree,
+    "test-plan": TestPlan,
+    "thread-group":ThreadGroup,
+    "user-variable":UserDefinedConfig,
+    "csvdata-set":CsvSetDataConfig,
+    "http-sampler":HttpRequest,
+    "json-extractor":JsonExtractor,
+    "result-tree":ViewResultsTree,
+    "result-table":ViewResultsTable,
+    "http-header":HttpHeaderManager,
+    "response-assertion":ResponseAssertion,
+    "beanshell-post":BeanShellPostProcessors,
+    "beanshell-pre":BeanShellPreProcessors,
+    "foreach-controller":ForeachController,
+
+}
