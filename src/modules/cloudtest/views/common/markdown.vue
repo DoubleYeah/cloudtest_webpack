@@ -1,61 +1,59 @@
 <template>
-  <div id="main">
-    <mavon-editor v-model="valuedata" :subfield="subfield" :placeholder="placeholderdata" :codeStyle="codestyle" :toolbarsFlag="subfield"> </mavon-editor>
-  </div>
+    <mavon-editor :initialValue="value" autoSave theme="GitHub"
+      :toolbars="toolbars"/>
 </template>
 
 <script>
-  import { mavonEditor } from 'mavon-editor'
-  import 'mavon-editor/dist/css/index.css'
+  import markDown from "vue-meditor";
   export default {
     data() {
       return {
-        valuedata:value,
-        codestyle:"github-gist",
-        placeholderdata:" ",
-        subfield:false,
+        codestyle: "github-gist",
+        placeholderdata: " ",
+        subfield: false,
         toolbars: {
-          bold:false , // 粗体
+          strong: false, // 粗体
           italic: false, // 斜体
-          header: false, // 标题
-          underline: false, // 下划线
-          strikethrough: false, // 中划线
-          mark: false, // 标记
-          superscript: false, // 上角标
-          subscript: false, // 下角标
-          quote: false, // 引用
-          ol: false, // 有序列表
-          ul: false, // 无序列表
-          link: false, // 链接
-          imagelink: false, // 图片链接
+          overline: false, // 标题
+          h1: false, // 下划线
+          h2: false, // 中划线
+          h3: false, // 标记
+          h4: false, // 上角标
+          h5: false, // 下角标
+          h6: false, // 引用
+          hr: false, // 有序列表
+          quote: false, // 无序列表
+          ul: false, // 链接
+          ol: false, // 图片链接
           code: false, // code
-          table: false, // 表格
-          fullscreen: false, // 全屏编辑
-          readmodel: false, // 沉浸式阅读
-          htmlcode: false, // 展示html源码
-          help: false, // 帮助
+          link: false, // 表格
+          image: false, // 全屏编辑
+          table: false, // 沉浸式阅读
+          checked: false, // 展示html源码
+          notChecked: false, // 帮助
           /* 1.3.5 */
-          undo: false, // 上一步
-          redo: false, // 下一步
-          trash: false, // 清空
-          save: false, // 保存（触发events中的save事件）
+          shift: false, // 上一步
+          print: false, // 下一步
+          theme: false, // 清空
+          fullscreen: false, // 保存（触发events中的save事件）
           /* 1.4.2 */
-          navigation: false, // 导航目录
+          exportmd: false, // 导航目录
           /* 2.1.8 */
-          alignleft: false, // 左对齐
+          importmd: false, // 左对齐
           aligncenter: false, // 居中
-          alignright: false, // 右对齐
-          /* 2.2.1 */
-          subfield: false, // 单双栏模式
+          shift:false,
           preview: false, // 预览
         }
       }
     },
-    components:{
-      "mavon-editor":mavonEditor
+    components: {
+      "mavon-editor": markDown
     },
-    props:{
-      value:String
+    props: {
+      value: {
+        type:String,
+        default:""
+      }
     }
   }
 
