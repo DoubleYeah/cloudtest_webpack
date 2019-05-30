@@ -17,257 +17,12 @@
 </template>
 
 <script>
-
-import TestPlanVue from "./plan/TestPlan.vue";
 import { components_def_map } from "../constants/constants.js";
 export default {
   name: "Dashboard",
   data() {
     return {
-      data: [
-        {
-          label: "TestPlan",
-          url: "/admin/plan/testplan",
-          component: "test-plan",
-          content: {
-            type: "org.apache.jmeter.testelement.TestPlan",
-            data: {
-              propMap: {
-                "TestElement.gui_class": {
-                  type: "org.apache.jmeter.testelement.property.StringProperty",
-                  data: {
-                    value: "org.apache.jmeter.control.gui.TestPlanGui",
-                    name: "TestElement.gui_class"
-                  }
-                },
-                "TestElement.test_class": {
-                  type: "org.apache.jmeter.testelement.property.StringProperty",
-                  data: {
-                    value: "org.apache.jmeter.testelement.TestPlan",
-                    name: "TestElement.test_class"
-                  }
-                },
-                "TestElement.name": {
-                  type: "org.apache.jmeter.testelement.property.StringProperty",
-                  data: { value: "测试计划333", name: "TestElement.name" }
-                },
-                "TestElement.enabled": {
-                  type: "org.apache.jmeter.testelement.property.StringProperty",
-                  data: { value: "true", name: "TestElement.enabled" }
-                },
-                "TestPlan.comments": {
-                  type: "org.apache.jmeter.testelement.property.StringProperty",
-                  data: { value: "", name: "TestPlan.comments" }
-                },
-                "TestPlan.functional_mode": {
-                  type:
-                    "org.apache.jmeter.testelement.property.BooleanProperty",
-                  data: { value: true, name: "TestPlan.functional_mode" }
-                },
-                "TestPlan.tearDown_on_shutdown": {
-                  type:
-                    "org.apache.jmeter.testelement.property.BooleanProperty",
-                  data: { value: true, name: "TestPlan.tearDown_on_shutdown" }
-                },
-                "TestPlan.serialize_threadgroups": {
-                  type:
-                    "org.apache.jmeter.testelement.property.BooleanProperty",
-                  data: { value: true, name: "TestPlan.serialize_threadgroups" }
-                },
-                "TestPlan.user_defined_variables": {
-                  type:
-                    "org.apache.jmeter.testelement.property.TestElementProperty",
-                  data: {
-                    value: {
-                      type: "org.apache.jmeter.config.Arguments",
-                      data: {
-                        propMap: {
-                          "Arguments.arguments": {
-                            type:
-                              "org.apache.jmeter.testelement.property.CollectionProperty",
-                            data: {
-                              value: [
-                                {
-                                  type:
-                                    "org.apache.jmeter.testelement.property.TestElementProperty",
-                                  data: {
-                                    value: {
-                                      type: "org.apache.jmeter.config.Argument",
-                                      data: {
-                                        propMap: {
-                                          "Argument.name": {
-                                            type:
-                                              "org.apache.jmeter.testelement.property.StringProperty",
-                                            data: {
-                                              value: "123",
-                                              name: "Argument.name"
-                                            }
-                                          },
-                                          "Argument.value": {
-                                            type:
-                                              "org.apache.jmeter.testelement.property.StringProperty",
-                                            data: {
-                                              value: "1234",
-                                              name: "Argument.value"
-                                            }
-                                          },
-                                          "Argument.metadata": {
-                                            type:
-                                              "org.apache.jmeter.testelement.property.StringProperty",
-                                            data: {
-                                              value: "=",
-                                              name: "Argument.metadata"
-                                            }
-                                          }
-                                        }
-                                      }
-                                    },
-                                    name: "123"
-                                  }
-                                },
-                                {
-                                  type:
-                                    "org.apache.jmeter.testelement.property.TestElementProperty",
-                                  data: {
-                                    value: {
-                                      type: "org.apache.jmeter.config.Argument",
-                                      data: {
-                                        propMap: {
-                                          "Argument.name": {
-                                            type:
-                                              "org.apache.jmeter.testelement.property.StringProperty",
-                                            data: {
-                                              value: "2345",
-                                              name: "Argument.name"
-                                            }
-                                          },
-                                          "Argument.value": {
-                                            type:
-                                              "org.apache.jmeter.testelement.property.StringProperty",
-                                            data: {
-                                              value: "323213",
-                                              name: "Argument.value"
-                                            }
-                                          },
-                                          "Argument.metadata": {
-                                            type:
-                                              "org.apache.jmeter.testelement.property.StringProperty",
-                                            data: {
-                                              value: "=",
-                                              name: "Argument.metadata"
-                                            }
-                                          }
-                                        }
-                                      }
-                                    },
-                                    name: "2345"
-                                  }
-                                }
-                              ],
-                              name: "Arguments.arguments"
-                            }
-                          },
-                          "TestElement.gui_class": {
-                            type:
-                              "org.apache.jmeter.testelement.property.StringProperty",
-                            data: {
-                              value:
-                                "org.apache.jmeter.config.gui.ArgumentsPanel",
-                              name: "TestElement.gui_class"
-                            }
-                          },
-                          "TestElement.test_class": {
-                            type:
-                              "org.apache.jmeter.testelement.property.StringProperty",
-                            data: {
-                              value: "org.apache.jmeter.config.Arguments",
-                              name: "TestElement.test_class"
-                            }
-                          },
-                          "TestElement.name": {
-                            type:
-                              "org.apache.jmeter.testelement.property.StringProperty",
-                            data: {
-                              value: "用户定义的变量",
-                              name: "TestElement.name"
-                            }
-                          },
-                          "TestElement.enabled": {
-                            type:
-                              "org.apache.jmeter.testelement.property.StringProperty",
-                            data: { value: "true", name: "TestElement.enabled" }
-                          }
-                        }
-                      }
-                    },
-                    name: "TestPlan.user_defined_variables"
-                  }
-                },
-                "TestPlan.user_define_classpath": {
-                  type: "org.apache.jmeter.testelement.property.StringProperty",
-                  data: {
-                    value:
-                      "F:\\code soft\\测试工具\\apache-jmeter-5.0\\bin\\ApacheJMeter.jar,F:\\code soft\\测试工具\\apache-jmeter-5.0\\lib\\asm-6.1.jar",
-                    name: "TestPlan.user_define_classpath"
-                  }
-                }
-              }
-            }
-          },
-          children: [
-            {
-              label: "二级 1-1",
-              children: [
-                {
-                  label: "三级 1-1-1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          label: "一级 2",
-          children: [
-            {
-              label: "二级 2-1",
-              children: [
-                {
-                  label: "三级 2-1-1"
-                }
-              ]
-            },
-            {
-              label: "二级 2-2",
-              children: [
-                {
-                  label: "三级 2-2-1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          label: "一级 3",
-          children: [
-            {
-              label: "二级 3-1",
-              children: [
-                {
-                  label: "三级 3-1-1"
-                }
-              ]
-            },
-            {
-              label: "二级 3-2",
-              children: [
-                {
-                  label: "三级 3-2-1"
-                }
-              ]
-            }
-          ]
-        }
-      ],
+      data: [],
       curls: "",
       currentContentComponent: "",
       currentContent: ""
@@ -275,7 +30,7 @@ export default {
   },
   components: components_def_map,
   created: function() {
-    //this.getCurrentTreeData();
+     this.getCurrentTreeData();
   },
   methods: {
     curl: function(url) {
@@ -337,7 +92,7 @@ export default {
     getCurrentTreeData() {
       var url =
         "http://localhost:8082/tree/getjmetertree?filepath=" +
-        "F:/code soft/测试工具/responeassertion.jmx";
+        "F:/code soft/测试工具/skynet.jmx";
       this.$http({
         method: "GET",
         url: url,
@@ -348,7 +103,7 @@ export default {
           //data.success(success.body);
           var treedata = this.arrayToTree(success.body.itemlist, "id", "pid");
           var arraytree = [];
-          //this.data = treedata;
+          this.data = treedata;
           //this.TreetoArray(arraytree, treedata);
           //this.data = treedata;
           console.log(treedata);
@@ -389,10 +144,10 @@ export default {
   border: solid #dcdfe6;
   border-width: 0 0 1px 1px;
 }
-.base-info{
-    background-color: #EBEEF5;
-    box-shadow: 0.1em 0.1em 0.3em #838a96;
-    margin: 0.5em;
+.base-info {
+  background-color: #ebeef5;
+  box-shadow: 0.1em 0.1em 0.3em #838a96;
+  margin: 0.5em;
 }
 
 </style>
