@@ -9,7 +9,25 @@ import vuer from 'vue-resource'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI)
 Vue.use(vuer)
-
+Vue.directive('focus', function (el, option) {
+  var defClass = 'el-input',
+    defTag = 'input';
+  var value = option.value || true;
+  if (typeof value === 'boolean')
+    value = {
+      cls: defClass,
+      tag: defTag,
+      foc: value
+    };
+  else
+    value = {
+      cls: value.cls || defClass,
+      tag: value.tag || defTag,
+      foc: value.foc || false
+    };
+  if (el.classList.contains(value.cls) && value.foc)
+    el.getElementsByTagName(value.tag)[0].focus();
+});
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
