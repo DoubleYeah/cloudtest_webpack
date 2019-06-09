@@ -14,8 +14,13 @@
                 <fieldset>
                     <legend>{{input3}}</legend>
                     <el-table border :data="headerdata" height="500px" max-height="500px">
-                          <el-table-column prop="name" label="Name:"></el-table-column>
-                          <el-table-column prop="value" label="Value"></el-table-column>
+                          <el-table-column prop="name" label="Name:">
+
+                          </el-table-column>
+                          <el-table-column prop="value" label="Value">
+
+                              
+                          </el-table-column>
                     </el-table>
                     <el-button-group>
                          <el-button type="primary">Add</el-button>
