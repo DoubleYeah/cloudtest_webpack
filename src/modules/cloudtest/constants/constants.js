@@ -3,7 +3,7 @@
 export const components_map = {
   "org.apache.jmeter.control.gui.TestPlanGui_org.apache.jmeter.testelement.TestPlan": "test-plan",
   "org.apache.jmeter.threads.gui.ThreadGroupGui_org.apache.jmeter.threads.ThreadGroup": "thread-group",
-  "org.apache.jmeter.config.gui.ArgumentsPanel_org.apache.jmeter.config.Arguments": "user-variable",
+  "org.apache.jmeter.config.gui.ArgumentsPanel_org.apache.jmeter.config.Arguments": "userdefine-variable",
   "org.apache.jmeter.testbeans.gui.TestBeanGUI_org.apache.jmeter.config.CSVDataSet": "csvdata-set",
   "org.apache.jmeter.protocol.http.control.gui.HttpTestSampleGui_org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy": "http-sampler",
   "org.apache.jmeter.extractor.json.jsonpath.gui.JSONPostProcessorGui_org.apache.jmeter.extractor.json.jsonpath.JSONPostProcessor": "json-extractor",
@@ -34,7 +34,7 @@ export const components_def_map = {
   "left-tree": LeftTree,
   "test-plan": TestPlan,
   "thread-group": ThreadGroup,
-  "user-variable": UserDefinedConfig,
+  "userdefine-variable": UserDefinedConfig,
   "csvdata-set": CsvSetDataConfig,
   "http-sampler": HttpRequest,
   "json-extractor": JsonExtractor,
@@ -44,7 +44,7 @@ export const components_def_map = {
   "response-assertion": ResponseAssertion,
   "beanshell-post": BeanShellPostProcessors,
   "beanshell-pre": BeanShellPreProcessors,
-  "foreach-controller": ForeachController,
+  "foreach-controller": ForeachController
 
 }
 
@@ -58,3 +58,4 @@ export const assertion_rule_check_map = {
   nor: 4,
   or: 32
 }
+
