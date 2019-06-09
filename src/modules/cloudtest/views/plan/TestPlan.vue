@@ -122,8 +122,13 @@
         //this.pagedata = JSON.parse(urldata.content)
         // props获取来自父控件的数据
         this.pagedata = JSON.parse(this.content);
-        this.elementname = this.pagedata["data"]["propMap"]["TestElement.name"]["data"]["value"]
-        this.comments = this.pagedata["data"]["propMap"]["TestPlan.comments"]["data"]["value"]
+        if(this.pagedata["data"]["propMap"]["TestElement.name"]!=undefined){
+           this.elementname = this.pagedata["data"]["propMap"]["TestElement.name"]["data"]["value"]
+        }
+        if(this.pagedata["data"]["propMap"]["TestPlan.comments"]!=undefined){
+           this.comments = this.pagedata["data"]["propMap"]["TestPlan.comments"]["data"]["value"]
+        }
+        
         this.runteardownonshutdown = this.pagedata["data"]["propMap"]["TestPlan.tearDown_on_shutdown"]["data"]["value"]
         this.functional_mode = this.pagedata["data"]["propMap"]["TestPlan.functional_mode"]["data"]["value"]
         this.serialize_threadgroups = this.pagedata["data"]["propMap"]["TestPlan.serialize_threadgroups"]["data"][
@@ -287,6 +292,7 @@
       },
       commitdata(){
         //收集所有data，将其转给主页面
+        
       },
       isEmptyObject(obj) {
         for (var key in obj) {
