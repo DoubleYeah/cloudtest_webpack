@@ -84,6 +84,11 @@ export default {
   },
   components: {
     "bean-shell": BeanShell
+  },
+  watch:{
+    content(){
+      this.getContentData();
+    }
   }
 };
 </script>
