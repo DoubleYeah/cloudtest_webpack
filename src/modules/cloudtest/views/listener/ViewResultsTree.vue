@@ -124,12 +124,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   div .baseproperty{
-      border: solid #dcdfe6;
   }
-
-
   .el-checkbox{
       margin-top:10px;
 

@@ -41,6 +41,7 @@ export default {
       // 动态控件以及节点数据
       this.currentContentComponent = component;
       this.currentContent = content;
+      // this.currentContentComponent = null;
     },
     arrayToTree: function(data, id, pid) {
       //将ID、ParentID这种数据格式转换为树格式
@@ -153,5 +154,11 @@ export default {
 </style>
 
 <style>
-
+div .baseproperty,.testelementproperty{
+  box-shadow: 0.1em 0 0.3em #838a96;
+  padding: 0.5em;
+}
+div .testelementproperty{
+  margin-top:1em;
+}
 </style>

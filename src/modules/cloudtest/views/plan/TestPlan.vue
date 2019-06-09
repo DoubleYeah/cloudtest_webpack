@@ -347,7 +347,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .el-header {
   font-size: 1.5em;
   text-align: left;
@@ -356,7 +356,6 @@ export default {
 }
 
 div .testelementproperty {
-  margin-top: 10px;
   text-align: center;
 }
 

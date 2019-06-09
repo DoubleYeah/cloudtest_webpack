@@ -5,6 +5,7 @@
       :props="defaultProps"
       @node-click="handleNodeClick"
       @node-contextmenu="rightclick"
+      :expand-on-click-node=false
     ></el-tree>
     <custom-menu id="rightClickMenu" :content="firstmenuitem" v-show="menuVisible" ref="firstmenu"></custom-menu>
   </div>
