@@ -141,7 +141,7 @@
 
       }
     },
-    mounted() {
+    beforeMount() {
       this.getContentData()
     }
 
