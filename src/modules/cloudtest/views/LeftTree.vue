@@ -52,12 +52,12 @@ export default {
       //传递iframedata
     },
     rightclick(event, object, value, element) {
+      this.$refs.firstmenu.setCallElement(object);
       this.$refs.firstmenu.show({
         top: event.pageY,
         left: event.pageX
       });
       document.addEventListener("click", e => {
-        console.log(e.target);
         this.$refs.firstmenu.hide();
       });
     }
