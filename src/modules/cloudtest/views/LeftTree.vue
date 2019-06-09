@@ -1,14 +1,25 @@
 <template>
   <div>
-    <el-tree :data="treedata" :props="defaultProps" @node-click="handleNodeClick" @node-contextmenu='rightclick'></el-tree>
-    <custom-menu id="rightClickMenu" :content="firstmenuitem" v-show="menuVisible"> </custom-menu>
+    <el-tree
+      :data="treedata"
+      :props="defaultProps"
+      @node-click="handleNodeClick"
+      @node-contextmenu="rightclick"
+    ></el-tree>
+    <custom-menu id="rightClickMenu" :content="firstmenuitem" v-show="menuVisible" ref="firstmenu"></custom-menu>
   </div>
 </template>
 
 <script>
 import { components_map } from "../constants/constants.js";
-import contextmenu from "../views/common/menu.vue"
-import {firstmenu_map,secondmenu_map,thirdmenu_map,fourthmenu_map, forthmenu_map} from "../constants/menuitem.js"
+import contextmenu from "../views/common/menu.vue";
+import {
+  firstmenu_map,
+  secondmenu_map,
+  thirdmenu_map,
+  fourthmenu_map,
+  forthmenu_map
+} from "../constants/menuitem.js";
 export default {
   data() {
     return {
@@ -16,11 +27,11 @@ export default {
         children: "children",
         label: "text"
       },
-      menuVisible:false,
-      firstmenuitem:firstmenu_map,
-      secondmenuitem:secondmenu_map,
-      thirdmenuitem:thirdmenu_map,
-      fourthmenuitem:forthmenu_map
+      menuVisible: false,
+      firstmenuitem: firstmenu_map,
+      secondmenuitem: secondmenu_map,
+      thirdmenuitem: thirdmenu_map,
+      fourthmenuitem: forthmenu_map
     };
   },
   methods: {
@@ -40,25 +51,23 @@ export default {
       this.$emit("refreshComponent", node_component, content);
       //传递iframedata
     },
-    rightclick(event, object, value, element){
-       this.menuVisible=true
-       document.addEventListener('click',(e)=>{
-        this.menuVisible = false;
-      })
-      let menu = document.querySelector("#rightClickMenu");
-      /* 菜单定位基于鼠标点击位置 */
-      menu.style.left = event.clientX + 20 + "px";
-      menu.style.top = event.clientY - 30 + "px";
-      menu.style.position = "absolute"; // 为新创建的DIV指定绝对定位
-      menu.style.width = 160 + "px";
+    rightclick(event, object, value, element) {
+      this.$refs.firstmenu.show({
+        top: event.pageY,
+        left: event.pageX
+      });
+      document.addEventListener("click", e => {
+        console.log(e.target);
+        this.$refs.firstmenu.hide();
+      });
     }
   },
 
   props: {
     treedata: Array
   },
-  components:{
-    "custom-menu":contextmenu
+  components: {
+    "custom-menu": contextmenu
   }
 };
 </script>
