@@ -132,17 +132,15 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .el-main {
   margin-top: 10px;
 }
 
 div .baseproperty {
-  border: solid #dcdfe6;
 }
 
 div .testelementproperty {
-  margin-top: 10px;
   text-align: left;
 }
 

@@ -7,6 +7,7 @@ import ElementUI from 'element-ui'
 import store from './store/store'
 import vuer from 'vue-resource'
 import 'element-ui/lib/theme-chalk/index.css'
+import './css/style.css'
 Vue.use(ElementUI)
 Vue.use(vuer)
 Vue.directive('focus', function (el, option) {

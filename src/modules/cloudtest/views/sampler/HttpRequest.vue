@@ -218,14 +218,11 @@
   }
 
 </script>
-<style>
+<style scoped>
   div .baseproperty {
-    border: solid #dcdfe6;
   }
 
   div .testelementproperty {
-    margin-top: 10px;
-
   }
 
 </style>
