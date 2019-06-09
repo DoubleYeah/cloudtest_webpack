@@ -5,7 +5,7 @@
       :props="defaultProps"
       @node-click="handleNodeClick"
       @node-contextmenu="rightclick"
-      :expand-on-click-node=false
+      :expand-on-click-node="false"
     ></el-tree>
     <custom-menu id="rightClickMenu" :content="firstmenuitem" v-show="menuVisible" ref="firstmenu"></custom-menu>
   </div>
@@ -38,7 +38,6 @@ export default {
   methods: {
     handleNodeClick(node) {
       //变更iframeurl
-      var content = JSON.stringify(node.content);
       var url = node.url;
       var node_component =
         components_map[
@@ -49,7 +48,7 @@ export default {
             node.content.type
         ];
       //this.$emit('curl', url)
-      this.$emit("refreshComponent", node_component, content);
+      this.$emit("refreshComponent", node_component, node);
       //传递iframedata
     },
     rightclick(event, object, value, element) {

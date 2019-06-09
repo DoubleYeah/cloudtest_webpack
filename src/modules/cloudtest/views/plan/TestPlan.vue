@@ -120,7 +120,7 @@ import markdown from "../common/markdown";
 export default {
   props: {
     content: {
-      type: String,
+      type: Object,
       required: true
     }
   },
@@ -159,7 +159,7 @@ export default {
       //var urldata = this.$route.query
       //this.pagedata = JSON.parse(urldata.content)
       // props获取来自父控件的数据
-      this.pagedata = JSON.parse(this.content);
+      this.pagedata = this.content.content;
       if (this.pagedata["data"]["propMap"]["TestElement.name"] != undefined) {
         this.elementname = this.pagedata["data"]["propMap"]["TestElement.name"][
           "data"

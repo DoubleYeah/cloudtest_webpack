@@ -25,7 +25,7 @@ import BeanShell from "../common/BeanShell";
 export default {
   props: {
     content: {
-      type: String,
+      type: Object,
       required: true
     }
   },
@@ -49,8 +49,7 @@ export default {
       //var urldata = this.$route.query
       //this.pagedata = JSON.parse(urldata.content)
       // props获取来自父控件的数据
-      console.log(this.content);
-      this.pagedata = JSON.parse(this.content);
+      this.pagedata = this.content.content;
 
       this.elementname = this.pagedata["data"]["propMap"]["TestElement.name"][
         "data"

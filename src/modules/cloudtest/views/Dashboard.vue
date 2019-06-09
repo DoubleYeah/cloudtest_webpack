@@ -9,7 +9,12 @@
         <!-- <iframe :src="curls" style="width:100%;height:100%">
         </iframe>-->
         <keep-alive>
-          <component v-bind:is="currentContentComponent" :content="currentContent" class="base-info"></component>
+          <component
+            v-bind:is="currentContentComponent"
+            :content="currentNode"
+            :key="currentNode.id"
+            class="base-info"
+          ></component>
         </keep-alive>
       </el-main>
     </el-container>
@@ -24,23 +29,23 @@ export default {
     return {
       data: [],
       curls: "",
-      currentContentComponent: "",
-      currentContent: ""
+      currentNode: {},
+      currentContentComponent: ""
     };
   },
   components: components_def_map,
   created: function() {
-     this.getCurrentTreeData();
+    this.getCurrentTreeData();
   },
   methods: {
     curl: function(url) {
       // childValue就是子组件传过来的值
       this.curls = url;
     },
-    refreshComponent: function(component, content) {
+    refreshComponent: function(component, node) {
       // 动态控件以及节点数据
       this.currentContentComponent = component;
-      this.currentContent = content;
+      this.currentNode = node;
       // this.currentContentComponent = null;
     },
     arrayToTree: function(data, id, pid) {
@@ -150,15 +155,15 @@ export default {
   box-shadow: 0.1em 0.1em 0.3em #838a96;
   margin: 0.5em;
 }
-
 </style>
 
 <style>
-div .baseproperty,.testelementproperty{
+div .baseproperty,
+.testelementproperty {
   box-shadow: 0.1em 0 0.3em #838a96;
   padding: 0.5em;
 }
-div .testelementproperty{
-  margin-top:1em;
+div .testelementproperty {
+  margin-top: 1em;
 }
 </style>
