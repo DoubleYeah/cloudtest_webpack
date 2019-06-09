@@ -36,7 +36,7 @@
 
 <script>
 export default {
-    name: "User Defined Variables",
+    name: "UserDefinedVariables",
     data () {
         return {
             input:"User Defined Variables",

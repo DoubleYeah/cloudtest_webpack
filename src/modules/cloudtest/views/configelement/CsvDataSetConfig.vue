@@ -20,7 +20,7 @@
             </el-input>
             <el-input v-model="input2" placeholder="">
               <template slot="prepend">File encoding:</template>
-              <el-select slot="append" placeholder="">
+              <el-select slot="append" placeholder="" v-model="input2">
                 <el-option label="utf-8" value="1"></el-option>
                 <el-option label="utf-16" value="2"></el-option>
                 <el-option label="iso-8859-15" value="3"></el-option>
@@ -33,7 +33,7 @@
             </el-input>
             <el-input v-model="input2" placeholder="">
               <template slot="prepend">Ignore first line(only used if Variable Names is not Empty):</template>
-              <el-select slot="append" placeholder="">
+              <el-select slot="append" placeholder="" v-model="input2">
                 <el-option label="True" value="1"></el-option>
                 <el-option label="False" value="2"></el-option>
                 <el-option label="Edit" value="3"></el-option>
@@ -44,7 +44,7 @@
             </el-input>
             <el-input v-model="input2" placeholder="">
               <template slot="prepend">Allow quoted data?:</template>
-              <el-select slot="append" placeholder="">
+              <el-select slot="append" placeholder="" v-model="input2">
                 <el-option label="True" value="1"></el-option>
                 <el-option label="False" value="2"></el-option>
                 <el-option label="Edit" value="3"></el-option>
@@ -52,7 +52,7 @@
             </el-input>
             <el-input v-model="input2" placeholder="">
               <template slot="prepend">Recycle on EOF?:</template>
-              <el-select slot="append" placeholder="">
+              <el-select slot="append" placeholder="" v-model="input2">
                 <el-option label="True" value="1"></el-option>
                 <el-option label="False" value="2"></el-option>
                 <el-option label="Edit" value="3"></el-option>
@@ -60,7 +60,7 @@
             </el-input>
             <el-input v-model="input2" placeholder="">
               <template slot="prepend">Stop Thread on EOF?:</template>
-              <el-select slot="append" placeholder="">
+              <el-select slot="append" placeholder="" v-model="input2">
                 <el-option label="True" value="1"></el-option>
                 <el-option label="False" value="2"></el-option>
                 <el-option label="Edit" value="3"></el-option>
@@ -68,7 +68,7 @@
             </el-input>
             <el-input v-model="input2" placeholder="">
               <template slot="prepend">Sharing mode:</template>
-              <el-select slot="append" placeholder="">
+              <el-select slot="append" placeholder="" v-model="input2">
                 <el-option label="All threads" value="1"></el-option>
                 <el-option label="Current thread group" value="2"></el-option>
                 <el-option label="Current thread" value="3"></el-option>
@@ -94,7 +94,7 @@
         required: true
       }
     },
-    name: "Csv Data Set Config",
+    name: "CsvDataSetConfig",
     data() {
       return {
         input: "Csv Data Set Config",
@@ -133,10 +133,10 @@
         }
         this.delimiter= this.pagedata["data"]["propMap"]["delimiter"][
             "data"
-          ]["value"]
+          ]["value"];
         this.fileEncoding=this.pagedata["data"]["propMap"]["fileEncoding"][
             "data"
-          ]["value"]
+          ]["value"];
 
 
       }
