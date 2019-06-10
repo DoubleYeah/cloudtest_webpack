@@ -48,6 +48,9 @@ export default {
       this.currentNode = node;
       // this.currentContentComponent = null;
     },
+    refreshNodeData: function(modifycontent) {
+      this.currentNode.content = modifycontent;
+    },
     arrayToTree: function(data, id, pid) {
       //将ID、ParentID这种数据格式转换为树格式
       var childrenName = "children";

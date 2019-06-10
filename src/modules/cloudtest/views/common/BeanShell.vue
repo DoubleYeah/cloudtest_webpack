@@ -27,7 +27,7 @@
       <legend>{{input5}}</legend>
       <label text-align="center" width="100%">Script:</label>
       <div>
-        <markdown-editor style="width:100%;margin-top:10px" :value="script"></markdown-editor>
+        <markdown-editor style="width:100%;margin-top:10px" :initvalue="script"></markdown-editor>
       </div>
     </fieldset>
   </div>

@@ -55,7 +55,7 @@
           </el-table-column>
         </el-table>
         <el-button-group>
-          <el-button type="primary" @click="dialogTableVisible=true">Detail</el-button>
+          <el-button type="primary" @click="opendetail">Detail</el-button>
           <el-button type="primary" @click="addvaluerow">Add</el-button>
           <el-button type="primary">Add from Clipboard</el-button>
           <el-button type="primary" @click="delvaluerow">Delete</el-button>
@@ -103,13 +103,15 @@
           <el-table-column prop="library" label="Library" align="center"></el-table-column>
         </el-table>
       </div>
-      <el-dialog
-        title="Detail"
-        :visible.sync="dialogTableVisible"
-        @close="dialogTableVisible=false"
-      >
+      <el-dialog title="Detail" :visible.sync="dialogTableVisible" @close="closeDetail">
         <el-input readonly v-model="name"></el-input>
-        <el-input type="textarea" v-model="data" style="margin-top:10px;width:100%;"></el-input>
+        <mark-down style="width:100%;height:200px" :initvalue="data" ref="markdowneditor"></mark-down>
+        <el-button-group>
+          <el-button type="primary" @click="updaterowdata">Update</el-button>
+          <el-button type="primary" @click="getPrevRowdata">Previous</el-button>
+          <el-button type="primary" @click="getNextRowdata">Next</el-button>
+          <el-button type="primary" @click="closeDetail">Close</el-button>
+        </el-button-group>
       </el-dialog>
     </el-main>
   </el-container>
@@ -213,7 +215,13 @@ export default {
         };
       }
     },
-    opendetail() {},
+    opendetail() {
+      if (!this.isEmptyObject(this.currowdata)) {
+        this.dialogTableVisible = true;
+        //将当前行取消高亮
+        this.$refs.valuetable.setCurrentRow(null);
+      }
+    },
     getcurrowdata(row, column, event) {
       //高亮当前行
       this.currowdata = row;
@@ -336,12 +344,56 @@ export default {
     },
     commitdata() {
       //收集所有data，将其转给主页面
+      this.pagedata["data"]["propMap"]["TestElement.name"] = this.elementname;
+      if (this.pagedata["data"]["propMap"]["TestPlan.comments"] != undefined) {
+        this.pagedata["data"]["propMap"]["TestPlan.comments"]["data"][
+          "value"
+        ] = this.comments;
+      } else {
+        this.pagedata["data"]["propMap"]["TestPlan.comments"] = {
+          type: "org.apache.jmeter.testelement.property.StringProperty",
+          data: {
+            value: this.comments,
+            name: "TestPlan.comments"
+          }
+        };
+      }
     },
     isEmptyObject(obj) {
       for (var key in obj) {
         return false; //返回false，不为空对象
       }
       return true; //返回true，为空对象
+    },
+    updaterowdata() {
+      let index = this.currowdata.index;
+      this.userdefinedlist[index].name = this.name;
+      this.data = this.$refs.markdowneditor.getMarkDownValue();
+      this.userdefinedlist[index].value = this.data;
+      console.log(this.userdefinedlist);
+    },
+    getPrevRowdata() {
+      //获取上一行的
+      if (!parseInt(this.currowdata.index) == 0) {
+        let newindex = parseInt(this.currowdata.index) - 1;
+        this.name = this.userdefinedlist[newindex + ""].name;
+        this.data = this.userdefinedlist[newindex + ""].value;
+        this.currowdata = this.userdefinedlist[newindex + ""];
+      }
+    },
+    getNextRowdata() {
+      if (!parseInt(this.currowdata.index) == this.userdefinedlist.length - 1) {
+        let newindex = parseInt(this.currowdata.index) + 1;
+        this.name = this.userdefinedlist[newindex + ""].name;
+        this.data = this.userdefinedlist[newindex + ""].value;
+        this.currowdata = this.userdefinedlist[newindex + ""];
+      }
+    },
+    closeDetail() {
+      this.dialogTableVisible = false;
+      this.currowdata = undefined;
+      this.name = undefined;
+      this.data = undefined;
     }
   }
 };

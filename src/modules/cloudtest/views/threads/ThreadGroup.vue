@@ -175,6 +175,12 @@ export default {
 </script>
 
 <style scoped>
+.el-header {
+  font-size: 1.5em;
+  text-align: left;
+  font-weight: bold;
+  margin-top: 0.5em;
+}
 .el-main {
   margin-top: 10px;
 }

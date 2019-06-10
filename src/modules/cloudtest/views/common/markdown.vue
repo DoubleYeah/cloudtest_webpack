@@ -1,5 +1,5 @@
 <template>
-  <mavon-editor :initialValue="value" theme="GitHub" :toolbars="toolbars" mode="3"/>
+  <mavon-editor :initialValue="initvalue" theme="GitHub" :toolbars="toolbars" mode="3" ref="mavon"/>
 </template>
 
 <script>
@@ -8,6 +8,7 @@ export default {
   data() {
     return {
       mode: 3,
+      value: "",
       toolbars: {
         strong: false, // 粗体
         italic: false, // 斜体
@@ -47,9 +48,14 @@ export default {
     "mavon-editor": markDown
   },
   props: {
-    value: {
+    initvalue: {
       type: String,
       default: ""
+    }
+  },
+  methods: {
+    getMarkDownValue() {
+      return this.$refs.mavon.value;
     }
   }
 };
