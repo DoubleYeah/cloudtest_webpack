@@ -14,21 +14,21 @@
         <fieldset>
           <legend>{{input4}}</legend>
           <div class="csvdatasetproperty">
-            <el-input>
+            <el-input v-model="filename">
               <template slot="prepend">Filename:</template>
               <el-button type="primary" slot="append">Browse...</el-button>
             </el-input>
             <el-input v-model="fileEncoding">
               <template slot="prepend">File encoding:</template>
               <el-select slot="append" placeholder v-model="fileEncoding">
-                <el-option label="utf-8" value="1"></el-option>
+                <el-option label="utf-8" value="utf-8"></el-option>
                 <el-option label="utf-16" value="2"></el-option>
                 <el-option label="iso-8859-15" value="3"></el-option>
                 <el-option label="US-ASCII" value="4"></el-option>
                 <el-option label="Edit" value="5"></el-option>
               </el-select>
             </el-input>
-            <el-input>
+            <el-input v-model="variableNames">
               <template slot="prepend">Variable Names(comma-delimited):</template>
             </el-input>
             <el-input v-model="input2" placeholder>
@@ -39,7 +39,7 @@
                 <el-option label="Edit" value="3"></el-option>
               </el-select>
             </el-input>
-            <el-input v-model="input5">
+            <el-input v-model="delimiter">
               <template slot="prepend">Delimiter(use '\t' for tab):</template>
             </el-input>
             <el-input v-model="input2" placeholder>
@@ -118,7 +118,7 @@ export default {
       //var urldata = this.$route.query
       //this.pagedata = JSON.parse(urldata.content)
       // props获取来自父控件的数据
-      this.pagedata = this.content;
+      this.pagedata = this.content.content;
       this.elementname = this.pagedata["data"]["propMap"]["TestElement.name"][
         "data"
       ]["value"];
