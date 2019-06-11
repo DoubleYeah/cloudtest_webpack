@@ -85,12 +85,59 @@ export default {
       this.endIndex = this.pagedata["data"]["propMap"][
         "ForeachController.endIndex"
       ]["data"]["value"];
+    },
+    commitdata() {
+      this.pagedata["data"]["propMap"]["TestElement.name"]["data"][
+        "value"
+      ] = this.elementname;
+      if (this.pagedata["data"]["propMap"]["TestPlan.comments"] == undefined) {
+        if (this.comments != "") {
+          this.pagedata["data"]["propMap"]["TestPlan.comments"] = {
+            type: "org.apache.jmeter.testelement.property.StringProperty",
+            data: {
+              value: this.comments,
+              name: "TestPlan.comments"
+            }
+          };
+        }
+      } else {
+        if (this.comments != "") {
+          this.pagedata["data"]["propMap"]["TestPlan.comments"]["data"][
+            "value"
+          ] = this.comments;
+        } else {
+          delete this.pagedata["data"]["propMap"]["TestPlan.comments"];
+        }
+      }
+      this.pagedata["data"]["propMap"]["ForeachController.inputVal"]["data"][
+        "value"
+      ] = this.inputVal;
+      this.pagedata["data"]["propMap"]["ForeachController.returnVal"]["data"][
+        "value"
+      ] = this.returnVal;
+      this.pagedata["data"]["propMap"]["ForeachController.useSeparator"][
+        "data"
+      ]["value"] = this.useSeparator;
+      this.pagedata["data"]["propMap"]["ForeachController.startIndex"]["data"][
+        "value"
+      ] = this.startIndex;
+      this.pagedata["data"]["propMap"]["ForeachController.endIndex"]["data"][
+        "value"
+      ] = this.endIndex;
+
+      this.$emit("refreshNodeData", this.pagedata);
     }
   }
 };
 </script>
 
 <style scoped>
+.el-header {
+  font-size: 1.5em;
+  text-align: left;
+  font-weight: bold;
+  margin-top: 0.5em;
+}
 .el-main {
 }
 div .baseproperty {

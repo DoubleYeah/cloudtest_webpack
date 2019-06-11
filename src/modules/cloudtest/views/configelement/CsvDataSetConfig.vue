@@ -18,9 +18,9 @@
               <template slot="prepend">Filename:</template>
               <el-button type="primary" slot="append">Browse...</el-button>
             </el-input>
-            <el-input v-model="input2" placeholder>
+            <el-input v-model="fileEncoding">
               <template slot="prepend">File encoding:</template>
-              <el-select slot="append" placeholder v-model="input2">
+              <el-select slot="append" placeholder v-model="fileEncoding">
                 <el-option label="utf-8" value="1"></el-option>
                 <el-option label="utf-16" value="2"></el-option>
                 <el-option label="iso-8859-15" value="3"></el-option>
@@ -133,6 +133,27 @@ export default {
         "value"
       ];
       this.fileEncoding = this.pagedata["data"]["propMap"]["fileEncoding"][
+        "data"
+      ]["value"];
+      this.filename = this.pagedata["data"]["propMap"]["filename"]["data"][
+        "value"
+      ];
+      this.ignoreFirstLine = this.pagedata["data"]["propMap"][
+        "ignoreFirstLine"
+      ]["data"]["value"];
+      this.quotedData = this.pagedata["data"]["propMap"]["quotedData"]["data"][
+        "value"
+      ];
+      this.recycle = this.pagedata["data"]["propMap"]["recycle"]["data"][
+        "value"
+      ];
+      this.shareMode = this.pagedata["data"]["propMap"]["shareMode"]["data"][
+        "value"
+      ];
+      this.stopThread = this.pagedata["data"]["propMap"]["stopThread"]["data"][
+        "value"
+      ];
+      this.variableNames = this.pagedata["data"]["propMap"]["variableNames"][
         "data"
       ]["value"];
     }

@@ -127,12 +127,139 @@ export default {
           "data"
         ]["value"];
       }
+    },
+    commitdata() {
+      this.pagedata["data"]["propMap"]["TestElement.name"]["data"][
+        "value"
+      ] = this.elementname;
+      if (this.pagedata["data"]["propMap"]["TestPlan.comments"] == undefined) {
+        if (this.comments != "") {
+          this.pagedata["data"]["propMap"]["TestPlan.comments"] = {
+            type: "org.apache.jmeter.testelement.property.StringProperty",
+            data: {
+              value: this.comments,
+              name: "TestPlan.comments"
+            }
+          };
+        }
+      } else {
+        if (this.comments != "") {
+          this.pagedata["data"]["propMap"]["TestPlan.comments"]["data"][
+            "value"
+          ] = this.comments;
+        } else {
+          delete this.pagedata["data"]["propMap"]["TestPlan.comments"];
+        }
+      }
+      this.pagedata["data"]["propMap"]["JSONPostProcessor.referenceNames"][
+        "data"
+      ]["value"] = this.referenceNames;
+      this.pagedata["data"]["propMap"]["JSONPostProcessor.jsonPathExprs"][
+        "data"
+      ]["value"] = this.jsonPathExprs;
+      this.pagedata["data"]["propMap"]["JSONPostProcessor.match_numbers"][
+        "data"
+      ]["value"] = this.match_numbers;
+      if (
+        this.pagedata["data"]["propMap"]["JSONPostProcessor.defaultValues"] !=
+        undefined
+      ) {
+        if (this.defaultValues == "") {
+          delete this.pagedata["data"]["propMap"][
+            "JSONPostProcessor.defaultValues"
+          ];
+        } else {
+          this.pagedata["data"]["propMap"]["JSONPostProcessor.defaultValues"][
+            "data"
+          ]["value"] = this.defaultValues;
+        }
+      } else {
+        if (this.defaultValues != "") {
+          this.pagedata["data"]["propMap"][
+            "JSONPostProcessor.defaultValues"
+          ] = {
+            type: "org.apache.jmeter.testelement.property.StringProperty",
+            data: {
+              value: this.defaultValues,
+              name: "JSONPostProcessor.defaultValues"
+            }
+          };
+        }
+      }
+      if (
+        this.pagedata["data"]["propMap"]["JSONPostProcessor.compute_concat"] !=
+        undefined
+      ) {
+        if (this.defaultValues == "") {
+          delete this.pagedata["data"]["propMap"][
+            "JSONPostProcessor.compute_concat"
+          ];
+        } else {
+          this.pagedata["data"]["propMap"][
+            "JSONPostProcessor.compute_concat"
+          ] = this.compute_concat;
+        }
+      } else {
+        if (this.compute_concat == true) {
+          this.pagedata["data"]["propMap"][
+            "JSONPostProcessor.compute_concat"
+          ] = {
+            type: "org.apache.jmeter.testelement.property.BooleanProperty",
+            data: {
+              value: true,
+              name: "JSONPostProcessor.compute_concat"
+            }
+          };
+        }
+      }
+      if (this.pagedata["data"]["propMap"]["Sample.scope"] != undefined) {
+        if (this.samplescope == "main") {
+          delete this.pagedata["data"]["propMap"]["Sample.scope"];
+        } else {
+          this.pagedata["data"]["propMap"]["Sample.scope"]["data"][
+            "value"
+          ] = this.samplescope;
+        }
+      } else {
+        if (this.samplescope != "main") {
+          this.pagedata["data"]["propMap"]["Sample.scope"] = {
+            type: "org.apache.jmeter.testelement.property.StringProperty",
+            data: {
+              value: this.samplescope,
+              name: "Sample.scope"
+            }
+          };
+        }
+      }
+
+      if (this.samplescope == "variable") {
+        if (this.pagedata["data"]["propMap"]["Scope.variable"] == undefined) {
+          this.pagedata["data"]["propMap"]["Scope.variable"] = {
+            type: "org.apache.jmeter.testelement.property.StringProperty",
+            data: {
+              value: this.variablename,
+              name: "Scope.variable"
+            }
+          };
+        } else {
+          this.pagedata["data"]["propMap"]["Scope.variable"]["data"][
+            "value"
+          ] = this.variablename;
+        }
+      }
+      this.$emit("refreshNodeData", this.pagedata);
     }
   }
 };
 </script>
 
 <style scoped>
+.el-header {
+  font-size: 1.5em;
+  text-align: left;
+  font-weight: bold;
+  margin-top: 0.5em;
+}
 .el-main {
   margin-top: 10px;
 }

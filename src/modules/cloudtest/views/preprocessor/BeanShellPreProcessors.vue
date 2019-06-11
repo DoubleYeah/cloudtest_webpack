@@ -79,6 +79,49 @@ export default {
         this.resetInterpreter = "True";
       }
       console.log(this.resetInterpreter);
+    },
+    commitdata() {
+      this.pagedata["data"]["propMap"]["TestElement.name"]["data"][
+        "value"
+      ] = this.elementname;
+      if (this.pagedata["data"]["propMap"]["TestPlan.comments"] == undefined) {
+        if (this.comments != "") {
+          this.pagedata["data"]["propMap"]["TestPlan.comments"] = {
+            type: "org.apache.jmeter.testelement.property.StringProperty",
+            data: {
+              value: this.comments,
+              name: "TestPlan.comments"
+            }
+          };
+        }
+      } else {
+        if (this.comments != "") {
+          this.pagedata["data"]["propMap"]["TestPlan.comments"]["data"][
+            "value"
+          ] = this.comments;
+        } else {
+          delete this.pagedata["data"]["propMap"]["TestPlan.comments"];
+        }
+      }
+      this.pagedata["data"]["propMap"]["parameters"]["data"][
+        "value"
+      ] = this.parameters;
+      this.pagedata["data"]["propMap"]["filename"]["data"][
+        "value"
+      ] = this.filename;
+      this.pagedata["data"]["propMap"]["script"]["data"][
+        "value"
+      ] = this.$refs.beanshell.getscriptdata();
+      if (this.resetInterpreter == "False") {
+        this.pagedata["data"]["propMap"]["resetInterpreter"]["data"][
+          "value"
+        ] = false;
+      } else if (this.resetInterpreter == "True") {
+        this.pagedata["data"]["propMap"]["resetInterpreter"]["data"][
+          "value"
+        ] = true;
+      }
+      this.$emit("refreshNodeData", this.pagedata);
     }
   },
   components: {
@@ -88,6 +131,12 @@ export default {
 </script>
 
 <style scoped>
+.el-header {
+  font-size: 1.5em;
+  text-align: left;
+  font-weight: bold;
+  margin-top: 0.5em;
+}
 .el-main {
   margin-top: 10px;
 }

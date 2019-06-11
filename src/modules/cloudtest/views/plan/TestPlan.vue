@@ -358,6 +358,66 @@ export default {
           }
         };
       }
+      let listdata = [];
+      for (var index in this.userdefinedlist) {
+        var usedata = {
+          type: "org.apache.jmeter.testelement.property.TestElementProperty",
+          data: {
+            value: {
+              type: "org.apache.jmeter.config.Argument",
+              data: {
+                propMap: {
+                  "Argument.name": {
+                    type:
+                      "org.apache.jmeter.testelement.property.StringProperty",
+                    data: {
+                      value: this.userdefinedlist[index].name,
+                      name: "Argument.name"
+                    }
+                  },
+                  "Argument.value": {
+                    type:
+                      "org.apache.jmeter.testelement.property.StringProperty",
+                    data: {
+                      value: this.userdefinedlist[index].value,
+                      name: "Argument.value"
+                    }
+                  },
+                  "Argument.metadata": {
+                    type:
+                      "org.apache.jmeter.testelement.property.StringProperty",
+                    data: {
+                      value: "=",
+                      name: "Argument.metadata"
+                    }
+                  }
+                }
+              }
+            },
+            name: this.userdefinedlist[index].name
+          }
+        };
+        listdata.push(usedata);
+      }
+      this.pagedata["data"]["propMap"]["TestPlan.user_defined_variables"][
+        "data"
+      ]["value"]["data"]["propMap"]["Arguments.arguments"]["data"][
+        "value"
+      ] = listdata;
+      this.pagedata["data"]["propMap"]["TestPlan.tearDown_on_shutdown"]["data"][
+        "value"
+      ] = this.runteardownonshutdown;
+      this.pagedata["data"]["propMap"]["TestPlan.functional_mode"]["data"][
+        "value"
+      ] = this.functional_mode;
+      this.pagedata["data"]["propMap"]["TestPlan.serialize_threadgroups"][
+        "data"
+      ]["value"] = this.serialize_threadgroups;
+      this.pagedata["data"]["propMap"]["TestPlan.user_define_classpath"][
+        "data"
+      ]["value"] = this.librarylist.concat(",");
+
+      this.$emit("refreshNodeData", this.pagedata);
     },
     isEmptyObject(obj) {
       for (var key in obj) {
@@ -374,7 +434,7 @@ export default {
     },
     getPrevRowdata() {
       //获取上一行的
-      if (!parseInt(this.currowdata.index) == 0) {
+      if (parseInt(this.currowdata.index) != 0) {
         let newindex = parseInt(this.currowdata.index) - 1;
         this.name = this.userdefinedlist[newindex + ""].name;
         this.data = this.userdefinedlist[newindex + ""].value;
@@ -382,7 +442,7 @@ export default {
       }
     },
     getNextRowdata() {
-      if (!parseInt(this.currowdata.index) == this.userdefinedlist.length - 1) {
+      if (parseInt(this.currowdata.index) != this.userdefinedlist.length - 1) {
         let newindex = parseInt(this.currowdata.index) + 1;
         this.name = this.userdefinedlist[newindex + ""].name;
         this.data = this.userdefinedlist[newindex + ""].value;
