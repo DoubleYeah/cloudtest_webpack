@@ -14,18 +14,18 @@
         <fieldset>
           <legend>{{input4}}</legend>
           <div class="csvdatasetproperty">
-            <el-input v-model="filename">
+            <el-input v-model="filename" >
               <template slot="prepend">Filename:</template>
               <el-button type="primary" slot="append">Browse...</el-button>
             </el-input>
-            <el-input v-model="fileEncoding">
+            <el-input v-model="fileEncoding" :readonly="editfileencode">
               <template slot="prepend">File encoding:</template>
               <el-select slot="append" placeholder v-model="fileEncoding">
-                <el-option label="utf-8" value="utf-8"></el-option>
-                <el-option label="utf-16" value="2"></el-option>
-                <el-option label="iso-8859-15" value="3"></el-option>
-                <el-option label="US-ASCII" value="4"></el-option>
-                <el-option label="Edit" value="5"></el-option>
+                <el-option label="UTF-8" value="UTF-8"></el-option>
+                <el-option label="UTF-16" value="UTF-16"></el-option>
+                <el-option label="ISO-8859-15" value="ISO-8859-15"></el-option>
+                <el-option label="US-ASCII" value="US-ASCII"></el-option>
+                <el-option label="Edit" value="Edit"></el-option>
               </el-select>
             </el-input>
             <el-input v-model="variableNames">
@@ -110,7 +110,8 @@ export default {
       shareMode: "shareMode.all",
       stopThread: false,
       variableNames: "",
-      delimiter: ","
+      delimiter: ",",
+      editfileencode:true
     };
   },
   methods: {
@@ -160,6 +161,15 @@ export default {
   },
   beforeMount() {
     this.getContentData();
+  },
+  watch:{
+     fileEncoding(val){
+       if(val=="Edit"){
+          this.editfileencode=false
+       }else{
+         this.editfileencode=true
+       }
+     }
   }
 };
 </script>
