@@ -106,22 +106,16 @@ export default {
       }
       this.pagedata["data"]["propMap"]["parameters"]["data"][
         "value"
-      ] = this.parameters;
+      ] = this.$refs.beanshell.getparameters();
       this.pagedata["data"]["propMap"]["filename"]["data"][
         "value"
-      ] = this.filename;
+      ] = this.$refs.beanshell.getscriptname();
       this.pagedata["data"]["propMap"]["script"]["data"][
         "value"
       ] = this.$refs.beanshell.getscriptdata();
-      if (this.resetInterpreter == "False") {
-        this.pagedata["data"]["propMap"]["resetInterpreter"]["data"][
-          "value"
-        ] = false;
-      } else if (this.resetInterpreter == "True") {
-        this.pagedata["data"]["propMap"]["resetInterpreter"]["data"][
-          "value"
-        ] = true;
-      }
+      this.pagedata["data"]["propMap"]["resetInterpreter"]["data"][
+        "value"
+      ] = this.$refs.beanshell.getresetinterpreterflag();
       this.$emit("refreshNodeData", this.pagedata);
     }
   },

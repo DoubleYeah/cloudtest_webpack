@@ -78,6 +78,19 @@ export default {
   methods: {
     getscriptdata() {
       return this.$refs.markdown.getMarkDownValue();
+    },
+    getscriptname() {
+      return this.scriptfilename;
+    },
+    getparameters() {
+      return this.params;
+    },
+    getresetinterpreterflag() {
+      if (this.resetinterpreter == "True") {
+        return true;
+      } else {
+        return false;
+      }
     }
   },
   components: {
