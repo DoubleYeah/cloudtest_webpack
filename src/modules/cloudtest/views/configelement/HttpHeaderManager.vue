@@ -56,6 +56,12 @@
 <script>
   export default {
     name: "HttpHeaderManager",
+    props: {
+      content: {
+        type: Object,
+        required: true
+      }
+    },
     data() {
       return {
         input: "HTTP Header Manager",
@@ -64,8 +70,6 @@
         elementname: "",
         comments: "",
         userdefinedlist: [],
-        name: "",
-        data: ""
       };
     },
     mounted() {
@@ -85,7 +89,7 @@
           ]["value"];
         }
         var variabledata = this.pagedata["data"]["propMap"][
-          "Arguments.arguments"
+          "HeaderManager.headers"
         ]["data"]["value"];
         this.inituserdefinedVariable(variabledata);
       },
@@ -93,10 +97,10 @@
         for (var variable in variabledata) {
           this.userdefinedlist[variable] = {
             name: variabledata[variable]["data"]["value"]["data"]["propMap"][
-              "Argument.name"
+              "Header.name"
             ]["data"]["value"],
             value: variabledata[variable]["data"]["value"]["data"]["propMap"][
-              "Argument.value"
+              "Header.value"
             ]["data"]["value"],
             edit_name: false,
             edit_value: false,
@@ -108,8 +112,6 @@
         //高亮当前行
         this.currowdata = row;
         this.$refs.valuetable.setCurrentRow(row);
-        this.name = row.name;
-        this.data = row.value;
         console.log(row);
         //console.log(column)
       },
@@ -224,25 +226,18 @@
                 type: "org.apache.jmeter.config.Argument",
                 data: {
                   propMap: {
-                    "Argument.name": {
+                    "Header.name": {
                       type: "org.apache.jmeter.testelement.property.StringProperty",
                       data: {
                         value: this.userdefinedlist[index].name,
                         name: "Argument.name"
                       }
                     },
-                    "Argument.value": {
+                    "Header.value": {
                       type: "org.apache.jmeter.testelement.property.StringProperty",
                       data: {
                         value: this.userdefinedlist[index].value,
                         name: "Argument.value"
-                      }
-                    },
-                    "Argument.metadata": {
-                      type: "org.apache.jmeter.testelement.property.StringProperty",
-                      data: {
-                        value: "=",
-                        name: "Argument.metadata"
                       }
                     }
                   }
@@ -253,7 +248,7 @@
           };
           listdata.push(usedata);
         }
-        this.pagedata["data"]["propMap"]["Arguments.arguments"]["data"][
+        this.pagedata["data"]["propMap"]["HeaderManager.headers"]["data"][
           "value"
         ] = listdata;
         this.$emit("refreshNodeData", this.pagedata);
@@ -263,30 +258,6 @@
           return false; //返回false，不为空对象
         }
         return true; //返回true，为空对象
-      },
-      updaterowdata() {
-        let index = this.currowdata.index;
-        this.userdefinedlist[index].name = this.name;
-        this.data = this.$refs.markdowneditor.getMarkDownValue();
-        this.userdefinedlist[index].value = this.data;
-        console.log(this.userdefinedlist);
-      },
-      getPrevRowdata() {
-        //获取上一行的
-        if (parseInt(this.currowdata.index) != 0) {
-          let newindex = parseInt(this.currowdata.index) - 1;
-          this.name = this.userdefinedlist[newindex + ""].name;
-          this.data = this.userdefinedlist[newindex + ""].value;
-          this.currowdata = this.userdefinedlist[newindex + ""];
-        }
-      },
-      getNextRowdata() {
-        if (parseInt(this.currowdata.index) != this.userdefinedlist.length - 1) {
-          let newindex = parseInt(this.currowdata.index) + 1;
-          this.name = this.userdefinedlist[newindex + ""].name;
-          this.data = this.userdefinedlist[newindex + ""].value;
-          this.currowdata = this.userdefinedlist[newindex + ""];
-        }
       }
     }
   }
