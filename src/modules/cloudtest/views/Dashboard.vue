@@ -12,8 +12,8 @@
           <component
             v-bind:is="currentContentComponent"
             :content="currentNode"
-            :key="currentNode.id"
             class="base-info"
+            :key="currentNode.id"
           ></component>
         </keep-alive>
       </el-main>
