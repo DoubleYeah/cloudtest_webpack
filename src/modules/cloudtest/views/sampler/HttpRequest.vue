@@ -15,17 +15,23 @@
           <el-tab-pane label="Basic">
             <fieldset>
               <legend style="text-align:left">Web Server</legend>
-              <el-row>
-              <el-input v-model="protocol" style="width:20%">
-                <template slot="prepend">Protocol[http]</template>
-              </el-input>
-              <el-input v-model="webservernameorip" style="width:50%">
-                <template slot="prepend">Server Name or IP:</template>
-              </el-input>
-              <el-input v-model="portnum" style="width:20%">
-                <template slot="prepend">Port Number:</template>
-              </el-input>
-               </el-row>
+              <el-row type="flex" justify="start">
+                <el-col :span="6">
+                  <el-input v-model="protocol">
+                    <template slot="prepend">Protocol[http]</template>
+                  </el-input>
+                </el-col>
+                <el-col :span="12">
+                  <el-input v-model="webservernameorip">
+                    <template slot="prepend">Server Name or IP:</template>
+                  </el-input>
+                </el-col>
+                <el-col :span="6">
+                  <el-input v-model="portnum">
+                    <template slot="prepend">Port Number:</template>
+                  </el-input>
+                </el-col>
+              </el-row>
             </fieldset>
             <fieldset>
               <div class="requestcontent">
@@ -69,14 +75,26 @@
                   <el-tab-pane label="Parameters" :disabled="paramdatacanedit" name="1">
                     <div style="text-align:center">
                       <label style="text-align:center">Send Parameters With the Request:</label>
-                      <el-table border style="width: 100%" height="500" row-key="index" :data="userdefinedlist"
-                        @row-click="getcurrowdata" highlight-current-row @cell-dblclick="dblhandleCurrentChange"
-                        ref="valuetable">
+                      <el-table
+                        border
+                        style="width: 100%"
+                        height="500"
+                        row-key="index"
+                        :data="userdefinedlist"
+                        @row-click="getcurrowdata"
+                        highlight-current-row
+                        @cell-dblclick="dblhandleCurrentChange"
+                        ref="valuetable"
+                      >
                         <el-table-column prop="name" label="Name:" align="center">
                           <template slot-scope="scope">
                             <span v-if="scope.row.edit_name">
-                              <el-input v-model="scope.row.name" @change="handleedit(scope.$index,scope.row)" v-focus
-                                @blur="inputblur"></el-input>
+                              <el-input
+                                v-model="scope.row.name"
+                                @change="handleedit(scope.$index,scope.row)"
+                                v-focus
+                                @blur="inputblur"
+                              ></el-input>
                             </span>
                             <span v-else>
                               <label>{{scope.row.name}}</label>
@@ -86,8 +104,12 @@
                         <el-table-column prop="value" label="Value">
                           <template slot-scope="scope">
                             <span v-if="scope.row.edit_value">
-                              <el-input v-model="scope.row.value" v-focus @blur="inputblur"
-                                @change="handleedit(scope.$index,scope.row)"></el-input>
+                              <el-input
+                                v-model="scope.row.value"
+                                v-focus
+                                @blur="inputblur"
+                                @change="handleedit(scope.$index,scope.row)"
+                              ></el-input>
                             </span>
                             <span v-else>
                               <label>{{scope.row.value}}</label>
@@ -102,8 +124,12 @@
                         <el-table-column prop="contenttype" label="Content-type">
                           <template slot-scope="scope">
                             <span v-if="scope.row.edit_contenttype">
-                              <el-input v-model="scope.row.contenttype" @change="handleedit(scope.$index,scope.row)"
-                                v-focus @blur="inputblur"></el-input>
+                              <el-input
+                                v-model="scope.row.contenttype"
+                                @change="handleedit(scope.$index,scope.row)"
+                                v-focus
+                                @blur="inputblur"
+                              ></el-input>
                             </span>
                             <span v-else>
                               <label>{{scope.row.contenttype}}</label>
@@ -127,19 +153,36 @@
                     </div>
                   </el-tab-pane>
                   <el-tab-pane label="Body Data" :disabled="bodycanedit" name="2">
-                    <mark-down style="width:100%;height:200px" :initvalue="bodydata" ref="markdowneditor"></mark-down>
+                    <mark-down
+                      style="width:100%;height:200px"
+                      :initvalue="bodydata"
+                      v-model="bodydata"
+                      ref="markdowneditor"
+                    ></mark-down>
                   </el-tab-pane>
                   <el-tab-pane label="Files Upload" name="3">
                     <div style="text-align:center">
                       <label style="text-align:center">Send Parameters With the Request:</label>
-                      <el-table border style="width: 100%" height="400px" :data="filelist" row-key="index"
-                        @row-click="getcurrowfiledata" highlight-current-row @cell-dblclick="dblhandlefileCurrentChange"
-                        ref="filetable">
+                      <el-table
+                        border
+                        style="width: 100%"
+                        height="400px"
+                        :data="filelist"
+                        row-key="index"
+                        @row-click="getcurrowfiledata"
+                        highlight-current-row
+                        @cell-dblclick="dblhandlefileCurrentChange"
+                        ref="filetable"
+                      >
                         <el-table-column prop="filepath" label="File Path">
                           <template slot-scope="scope">
                             <span v-if="scope.row.edit_filepath">
-                              <el-input v-model="scope.row.filepath" @change="handleedit(scope.$index,scope.row)"
-                                v-focus @blur="inputfileblur"></el-input>
+                              <el-input
+                                v-model="scope.row.filepath"
+                                @change="handleedit(scope.$index,scope.row)"
+                                v-focus
+                                @blur="inputfileblur"
+                              ></el-input>
                             </span>
                             <span v-else>
                               <label>{{scope.row.filepath}}</label>
@@ -149,8 +192,12 @@
                         <el-table-column prop="paramname" label="Parameter Name">
                           <template slot-scope="scope">
                             <span v-if="scope.row.edit_paramname">
-                              <el-input v-model="scope.row.paramname" @change="handleedit(scope.$index,scope.row)"
-                                v-focus @blur="inputfileblur"></el-input>
+                              <el-input
+                                v-model="scope.row.paramname"
+                                @change="handleedit(scope.$index,scope.row)"
+                                v-focus
+                                @blur="inputfileblur"
+                              ></el-input>
                             </span>
                             <span v-else>
                               <label>{{scope.row.paramname}}</label>
@@ -160,8 +207,12 @@
                         <el-table-column prop="mimetype" label="MIME Type">
                           <template slot-scope="scope">
                             <span v-if="scope.row.edit_mimetype">
-                              <el-input v-model="scope.row.mimetype" @change="handleedit(scope.$index,scope.row)"
-                                v-focus @blur="inputfileblur"></el-input>
+                              <el-input
+                                v-model="scope.row.mimetype"
+                                @change="handleedit(scope.$index,scope.row)"
+                                v-focus
+                                @blur="inputfileblur"
+                              ></el-input>
                             </span>
                             <span v-else>
                               <label>{{scope.row.mimetype}}</label>
@@ -171,7 +222,7 @@
                       </el-table>
                       <el-button-group style="margin-top:10px">
                         <el-button type="primary" @click="addfilevaluerow">Add</el-button>
-                        <el-button type="primary" >Browse..</el-button>
+                        <el-button type="primary">Browse..</el-button>
                         <el-button type="primary" @click="delfilevaluerow">Delete</el-button>
                       </el-button-group>
                     </div>
@@ -210,12 +261,11 @@
             </el-row>
             <fieldset>
               <legend style="text-align:left">Embedded Resources from HTML Files</legend>
-              <div>
-                <el-checkbox label="Retrieve All Embedded Resources"></el-checkbox>
-                <el-checkbox label="Parallel downloads.Number"></el-checkbox>
-                <el-input style="width:10px" value="6"></el-input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;URLs
-                must match:
-                <el-input  v-model="urlrematch" style="width:50%"></el-input>
+              <div style="text-align:left">
+                <el-checkbox v-model="image_parser" label="Retrieve All Embedded Resources"></el-checkbox>
+                <el-checkbox v-model="concurrentDwn" label="Parallel downloads.Number"></el-checkbox>
+                <el-input size="mini" style="width:40px" v-model="concurrentPool"></el-input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;URLs must match:
+                <el-input v-model="urlrematch" style="width:50%"></el-input>
               </div>
             </fieldset>
             <fieldset>
@@ -265,426 +315,589 @@
 </template>
 
 <script>
-  import markdown from "../common/markdown";
-  const sendtype_map = {
-    "HTTPSampler.follow_redirects": "Follow Redirects",
-    "HTTPSampler.auto_redirects": "RedirectAutomatically",
-    "HTTPSampler.use_keepalive": "Use KeepAlive",
-    "HTTPSampler.DO_MULTIPART_POST": "Use Mutilpart/form-data",
-    "HTTPSampler.BROWSER_COMPATIBLE_MULTIPART": "Browser-compatible headers"
-  };
-  export default {
-    name: "HttpRequest",
-    props: {
-      content: {
-        type: Object,
-        required: true
+import markdown from "../common/markdown";
+const sendtype_map = {
+  "HTTPSampler.follow_redirects": "Follow Redirects",
+  "HTTPSampler.auto_redirects": "RedirectAutomatically",
+  "HTTPSampler.use_keepalive": "Use KeepAlive",
+  "HTTPSampler.DO_MULTIPART_POST": "Use Mutilpart/form-data",
+  "HTTPSampler.BROWSER_COMPATIBLE_MULTIPART": "Browser-compatible headers"
+};
+export default {
+  name: "HttpRequest",
+  props: {
+    content: {
+      type: Object,
+      required: true
+    }
+  },
+  watch: {
+    userdefinedlist(val) {
+      if (val.length == 0) {
+        this.bodycanedit = false;
+      } else {
+        this.bodycanedit = true;
       }
     },
-    watch: {
-      userdefinedlist(val) {
-        if (val == []) {
-          this.bodycanedit = false;
-        } else {
+    bodydata(val) {
+      if (val.length == 0) {
+        this.paramdatacanedit = false;
+      } else {
+        this.paramdatacanedit = true;
+      }
+    }
+  },
+  mounted() {
+    this.getContentData();
+  },
+  methods: {
+    getContentData() {
+      this.pagedata = this.content.content;
+      this.elementname = this.pagedata["data"]["propMap"]["TestElement.name"][
+        "data"
+      ]["value"];
+      if (this.pagedata["data"]["propMap"]["TestPlan.comments"] == undefined) {
+        this.comments = "";
+      } else {
+        this.comments = this.pagedata["data"]["propMap"]["TestPlan.comments"][
+          "data"
+        ]["value"];
+      }
+      //取出协议名称
+      this.protocol = this.pagedata["data"]["propMap"]["HTTPSampler.protocol"][
+        "data"
+      ]["value"];
+      //取出domain
+      this.webservernameorip = this.pagedata["data"]["propMap"][
+        "HTTPSampler.domain"
+      ]["data"]["value"];
+      this.portnum = this.pagedata["data"]["propMap"]["HTTPSampler.port"][
+        "data"
+      ]["value"];
+      this.methodtype = this.pagedata["data"]["propMap"]["HTTPSampler.method"][
+        "data"
+      ]["value"];
+      this.serverpath = this.pagedata["data"]["propMap"]["HTTPSampler.path"][
+        "data"
+      ]["value"];
+      this.encoding = this.pagedata["data"]["propMap"][
+        "HTTPSampler.contentEncoding"
+      ]["data"]["value"];
+      this.sendtype = [];
+      for (var key in sendtype_map) {
+        if (
+          this.pagedata["data"]["propMap"][key] != undefined &&
+          this.pagedata["data"]["propMap"][key]["data"]["value"] == true
+        ) {
+          this.sendtype.push(sendtype_map[key]);
+        }
+      }
+      //判断是body还是querystring
+      if (
+        this.pagedata["data"]["propMap"]["HTTPSampler.postBodyRaw"] !=
+          undefined &&
+        this.pagedata["data"]["propMap"]["HTTPSampler.postBodyRaw"]["data"][
+          "value"
+        ] == true
+      ) {
+        this.bodydata = this.pagedata["data"]["propMap"][
+          "HTTPsampler.Arguments"
+        ]["data"]["value"]["data"]["propMap"]["Arguments.arguments"]["data"][
+          "value"
+        ][0]["data"]["value"]["data"]["propMap"]["Argument.value"]["data"][
+          "value"
+        ];
+        this.tabpos = "2";
+      } else {
+        let paramdata = this.pagedata["data"]["propMap"][
+          "HTTPsampler.Arguments"
+        ]["data"]["value"]["data"]["propMap"]["Arguments.arguments"]["data"][
+          "value"
+        ];
+        this.inituserdefinedVariable(paramdata);
+        if (this.userdefinedlist.length != 0) {
           this.bodycanedit = true;
         }
-      },
-      bodydata(val) {
-        if (val == "") {
-          this.paramdatacanedit = false;
-        } else {
-          this.paramdatacanedit = true;
-        }
+      }
+      if (this.pagedata["data"]["propMap"]["HTTPsampler.Files"] != undefined) {
+        let filedata = this.pagedata["data"]["propMap"]["HTTPsampler.Files"][
+          "data"
+        ]["value"]["data"]["propMap"]["HTTPFileArgs.files"]["data"]["value"];
+        this.initfilelist(filedata);
+      }
+      if (this.pagedata["data"]["propMap"]["HTTPSampler.md5"] != undefined) {
+        this.md5value = this.pagedata["data"]["propMap"]["HTTPSampler.md5"][
+          "data"
+        ]["value"];
+      }
+      if (
+        this.pagedata["data"]["propMap"]["HTTPSampler.implementation"] !=
+        undefined
+      ) {
+        this.clientimplementationvalue = this.pagedata["data"]["propMap"][
+          "HTTPSampler.implementation"
+        ]["data"]["value"];
+      }
+      this.conncttime = this.pagedata["data"]["propMap"][
+        "HTTPSampler.connect_timeout"
+      ]["data"]["value"];
+      this.Responsetime = this.pagedata["data"]["propMap"][
+        "HTTPSampler.response_timeout"
+      ]["data"]["value"];
+      if (
+        this.pagedata["data"]["propMap"]["HTTPSampler.proxyHost"] != undefined
+      ) {
+        this.proxyHost = this.pagedata["data"]["propMap"][
+          "HTTPSampler.proxyHost"
+        ]["data"]["value"];
+      }
+      if (
+        this.pagedata["data"]["propMap"]["HTTPSampler.proxyPort"] != undefined
+      ) {
+        this.proxyportnum = this.pagedata["data"]["propMap"][
+          "HTTPSampler.proxyPort"
+        ]["data"]["value"];
+      }
+      if (
+        this.pagedata["data"]["propMap"]["HTTPSampler.proxyUser"] != undefined
+      ) {
+        this.proxyuser = this.pagedata["data"]["propMap"][
+          "HTTPSampler.proxyUser"
+        ]["data"]["value"];
+      }
+      if (
+        this.pagedata["data"]["propMap"]["HTTPSampler.proxyPass"] != undefined
+      ) {
+        this.proxypwd = this.pagedata["data"]["propMap"][
+          "HTTPSampler.proxyPass"
+        ]["data"]["value"];
+      }
+      if (
+        this.pagedata["data"]["propMap"]["HTTPSampler.ipSource"] != undefined
+      ) {
+        this.sourceaddrdata = this.pagedata["data"]["propMap"][
+          "HTTPSampler.ipSource"
+        ]["data"]["value"];
+      }
+      this.urlrematch = this.pagedata["data"]["propMap"][
+        "HTTPSampler.embedded_url_re"
+      ]["data"]["value"];
+      if (
+        this.pagedata["data"]["propMap"]["HTTPSampler.ipSourceType"] !=
+        undefined
+      ) {
+        this.select = this.pagedata["data"]["propMap"][
+          "HTTPSampler.ipSourceType"
+        ]["data"]["value"];
+      }
+      if (
+        this.pagedata["data"]["propMap"]["HTTPSampler.image_parser"] !=
+        undefined
+      ) {
+        this.image_parser = this.pagedata["data"]["propMap"][
+          "HTTPSampler.image_parser"
+        ]["data"]["value"];
+      }
+      if (
+        this.pagedata["data"]["propMap"]["HTTPSampler.concurrentDwn"] !=
+        undefined
+      ) {
+        this.concurrentDwn = this.pagedata["data"]["propMap"][
+          "HTTPSampler.concurrentDwn"
+        ]["data"]["value"];
+      }
+      if (
+        this.pagedata["data"]["propMap"]["HTTPSampler.concurrentPool"] !=
+        undefined
+      ) {
+        this.concurrentPool = this.pagedata["data"]["propMap"][
+          "HTTPSampler.concurrentPool"
+        ]["data"]["value"];
       }
     },
-    mounted() {
-      this.getContentData();
-    },
-    methods: {
-      getContentData() {
-        this.pagedata = this.content.content;
-        this.elementname = this.pagedata["data"]["propMap"]["TestElement.name"][
-          "data"
-        ]["value"];
-        if (this.pagedata["data"]["propMap"]["TestPlan.comments"] == undefined) {
-          this.comments = "";
-        } else {
-          this.comments = this.pagedata["data"]["propMap"]["TestPlan.comments"][
-            "data"
-          ]["value"];
-        }
-        //取出协议名称
-        this.protocol = this.pagedata["data"]["propMap"]["HTTPSampler.protocol"][
-          "data"
-        ]["value"];
-        //取出domain
-        this.webservernameorip = this.pagedata["data"]["propMap"][
-          "HTTPSampler.domain"
-        ]["data"]["value"];
-        this.portnum = this.pagedata["data"]["propMap"]["HTTPSampler.port"][
-          "data"
-        ]["value"];
-        this.methodtype = this.pagedata["data"]["propMap"]["HTTPSampler.method"][
-          "data"
-        ]["value"];
-        this.serverpath = this.pagedata["data"]["propMap"]["HTTPSampler.path"][
-          "data"
-        ]["value"];
-        this.encoding = this.pagedata["data"]["propMap"][
-          "HTTPSampler.contentEncoding"
-        ]["data"]["value"];
-        this.sendtype = [];
-        for (var key in sendtype_map) {
-          if (
-            this.pagedata["data"]["propMap"][key] != undefined &&
-            this.pagedata["data"]["propMap"][key]["data"]["value"] == true
-          ) {
-            this.sendtype.push(sendtype_map[key]);
-          }
-        }
-        //判断是body还是querystring
-        if (
-          this.pagedata["data"]["propMap"]["HTTPSampler.postBodyRaw"] !=
-          undefined &&
-          this.pagedata["data"]["propMap"]["HTTPSampler.postBodyRaw"]["data"][
-            "value"
-          ] == true
-        ) {
-          this.bodydata = this.pagedata["data"]["propMap"][
-            "HTTPsampler.Arguments"
-          ]["data"]["value"]["data"]["propMap"]["Arguments.arguments"]["data"][
-            "value"
-          ][0]["data"]["value"]["data"]["propMap"]["Argument.value"]["data"][
-            "value"
-          ];
-          this.tabpos = "2";
-        } else {
-          let paramdata = this.pagedata["data"]["propMap"][
-            "HTTPsampler.Arguments"
-          ]["data"]["value"]["data"]["propMap"]["Arguments.arguments"]["data"][
-            "value"
-          ];
-          this.inituserdefinedVariable(paramdata);
-        }
-        if (this.pagedata["data"]["propMap"][
-            "HTTPsampler.Files"
-          ] != undefined) {
-          let filedata = this.pagedata["data"]["propMap"][
-            "HTTPsampler.Files"
-          ]["data"]["value"]["data"]["propMap"]["HTTPFileArgs.files"]["data"]["value"]
-          this.initfilelist(filedata)
-        }
-        if(this.pagedata["data"]["propMap"][
-            "HTTPSampler.md5"
-          ] != undefined){
-            this.md5value=this.pagedata["data"]["propMap"][
-            "HTTPSampler.md5"
-          ]["data"]["value"]
-          }
-        if(this.pagedata["data"]["propMap"][
-            "HTTPSampler.implementation"
-          ] != undefined){
-            this.clientimplementationvalue=this.pagedata["data"]["propMap"][
-            "HTTPSampler.implementation"
-          ]["data"]["value"]
-        }
-        this.conncttime=this.pagedata["data"]["propMap"][
-            "HTTPSampler.connect_timeout"
-          ]["data"]["value"]
-        this.Responsetime=this.pagedata["data"]["propMap"][
-            "HTTPSampler.response_timeout"
-          ]["data"]["value"]
-        if(this.pagedata["data"]["propMap"][
-            "HTTPSampler.ipSource"
-          ] != undefined){
-            this.proxyHost=this.pagedata["data"]["propMap"][
-            "HTTPSampler.proxyHost"
-          ]["data"]["value"]
-        }
-        if(this.pagedata["data"]["propMap"][
-            "HTTPSampler.proxyPort"
-          ] != undefined){
-            this.proxyportnum=this.pagedata["data"]["propMap"][
-            "HTTPSampler.proxyPort"
-          ]["data"]["value"]
-        }
-        if(this.pagedata["data"]["propMap"][
-            "HTTPSampler.proxyUser"
-          ] != undefined){
-            this.proxyuser=this.pagedata["data"]["propMap"][
-            "HTTPSampler.proxyUser"
-          ]["data"]["value"]
-        }
-        if(this.pagedata["data"]["propMap"][
-            "HTTPSampler.proxyPass"
-          ] != undefined){
-            this.proxypwd=this.pagedata["data"]["propMap"][
-            "HTTPSampler.proxyPass"
-          ]["data"]["value"]
-        }
-        if(this.pagedata["data"]["propMap"][
-            "HTTPSampler.ipSource"
-          ] != undefined){
-            this.sourceaddrdata=this.pagedata["data"]["propMap"][
-            "HTTPSampler.ipSource"
-          ]["data"]["value"]
-        }
-        this.urlrematch=this.sourceaddrdata=this.pagedata["data"]["propMap"][
-            "HTTPSampler.embedded_url_re"
-          ]["data"]["value"]
-        if(this.pagedata["data"]["propMap"][
-            "HTTPSampler.ipSourceType"
-          ] != undefined){
-            this.select=this.pagedata["data"]["propMap"][
-            "HTTPSampler.ipSourceType"
-          ]["data"]["value"]
-        }
-
-      },
-      initfilelist(filedata) {
-        for (var fileindex in filedata) {
-          this.filelist[fileindex] = {
-            filepath: filedata[fileindex]["data"]["value"]["data"]["propMap"]["File.path"]["data"]["value"],
-            paramname: filedata[fileindex]["data"]["value"]["data"]["propMap"]["File.paramname"]["data"]["value"],
-            mimetype: filedata[fileindex]["data"]["value"]["data"]["propMap"]["File.mimetype"]["data"]["value"],
-            edit_filepath: false,
-            edit_paramname: false,
-            edit_mimetype: false,
-            index: fileindex
-          }
-        }
-      },
-      inituserdefinedVariable(variabledata) {
-        for (var variable in variabledata) {
-          this.userdefinedlist[variable] = {
-            name: variabledata[variable]["data"]["value"]["data"]["propMap"][
-              "Argument.name"
+    initfilelist(filedata) {
+      for (var fileindex in filedata) {
+        this.filelist[fileindex] = {
+          filepath:
+            filedata[fileindex]["data"]["value"]["data"]["propMap"][
+              "File.path"
             ]["data"]["value"],
-            value: variabledata[variable]["data"]["value"]["data"]["propMap"][
-              "Argument.value"
+          paramname:
+            filedata[fileindex]["data"]["value"]["data"]["propMap"][
+              "File.paramname"
             ]["data"]["value"],
-            contenttype: variabledata[variable]["data"]["value"]["data"]["propMap"][
-                "HTTPArgument.content_type"
-              ] != undefined ?
-              variabledata[variable]["data"]["value"]["data"]["propMap"][
-                "HTTPArgument.content_type"
-              ]["data"]["value"] : "text/plain",
-            always_encode: variabledata[variable]["data"]["value"]["data"]["propMap"][
-              "HTTPArgument.always_encode"
+          mimetype:
+            filedata[fileindex]["data"]["value"]["data"]["propMap"][
+              "File.mimetype"
             ]["data"]["value"],
-            use_equals: variabledata[variable]["data"]["value"]["data"]["propMap"][
-              "HTTPArgument.use_equals"
-            ]["data"]["value"],
-            edit_name: false,
-            edit_value: false,
-            edit_contenttype: false,
-            index: variable
-          };
-        }
-      },
-      opendetail() {
-        if (!this.isEmptyObject(this.currowdata)) {
-          this.dialogTableVisible = true;
-          //将当前行取消高亮
-          this.$refs.valuetable.setCurrentRow(null);
-        }
-      },
-      getcurrowdata(row, column, event) {
-        //高亮当前行
-        this.currowdata = row;
-        this.$refs.valuetable.setCurrentRow(row);
-        this.name = row.name;
-        this.data = row.value;
-        console.log(row);
-        //console.log(column)
-      },
-      dblhandleCurrentChange(row, column, cell, event) {
-        if (column.label == "Name:") {
-          row.edit_name = true;
-        } else if (column.label == "Value") {
-          row.edit_value = true;
-        } else {
-          row.edit_contenttype = true;
-        }
-      },
-      getcurrowfiledata(row, column, event) {
-        //高亮当前行
-        this.currowfiledata = row;
-        this.$refs.filetable.setCurrentRow(row);
-        //console.log(column)
-      },
-      dblhandlefileCurrentChange(row, column, cell, event) {
-        if (column.label == "File Path") {
-          row.edit_filepath = true;
-        } else if (column.label == "Parameter Name") {
-          row.edit_paramname = true;
-        } else {
-          row.edit_mimetype = true;
-        }
-      },
-      handleedit(index, row) {
-        console.log(index);
-        console.log(row);
-      },
-      inputblur(row, event, column) {
-        let tableD = this.userdefinedlist;
-        tableD.forEach(function (item) {
-          item.edit_name = false;
-          item.edit_value = false;
-          item.edit_description = false;
-        });
-      },
-      inputfileblur(row, event, column) {
-        let tableD = this.filelist;
-        tableD.forEach(function (item) {
-          item.edit_filepath = false;
-          item.edit_paramname = false;
-          item.edit_mimetype = false;
-        });
-      },
-      addvaluerow(event) {
-        var data = {
-          name: "",
-          value: "",
-          contenttype: "text/plain",
-          edit_name: false,
-          edit_value: false,
-          edit_contenttype: false,
-          always_encode: false,
-          use_equals: false,
-          index: this.userdefinedlist.length
-        };
-        //添加到最后一行
-        this.userdefinedlist.push(data);
-      },
-      delvaluerow(event) {
-        //删除当前选中行
-        if (!this.isEmptyObject(this.currowdata)) {
-          //将本行删除
-          for (var rowindex in this.userdefinedlist) {
-            if (rowindex == this.currowdata["index"]) {
-              this.userdefinedlist.splice(rowindex, 1);
-              //将当前行置为空
-              this.currowdata = {};
-              //调整index
-              for (var i = rowindex; i < this.userdefinedlist.length; i++) {
-                this.userdefinedlist[i]["index"] = i;
-              }
-              break;
-            }
-          }
-        }
-        console.log(this.userdefinedlist);
-      },
-      addfilevaluerow(event) {
-        var data = {
-          filepath: "",
-          paramname: "",
-          mimetype: "",
           edit_filepath: false,
           edit_paramname: false,
           edit_mimetype: false,
-          index: this.filelist.length
+          index: fileindex
         };
-        //添加到最后一行
-        this.filelist.push(data);
-      },
-      delfilevaluerow(event) {
-        //删除当前选中行
-        if (!this.isEmptyObject(this.currowfiledata)) {
-          //将本行删除
-          for (var rowindex in this.filelist) {
-            if (rowindex == this.currowfiledata["index"]) {
-              this.filelist.splice(rowindex, 1);
-              //将当前行置为空
-              this.currowdata = {};
-              //调整index
-              for (var i = rowindex; i < this.filelist.length; i++) {
-                this.filelist[i]["index"] = i;
-              }
-              break;
+      }
+    },
+    inituserdefinedVariable(variabledata) {
+      for (var variable in variabledata) {
+        this.userdefinedlist[variable] = {
+          name:
+            variabledata[variable]["data"]["value"]["data"]["propMap"][
+              "Argument.name"
+            ]["data"]["value"],
+          value:
+            variabledata[variable]["data"]["value"]["data"]["propMap"][
+              "Argument.value"
+            ]["data"]["value"],
+          contenttype:
+            variabledata[variable]["data"]["value"]["data"]["propMap"][
+              "HTTPArgument.content_type"
+            ] != undefined
+              ? variabledata[variable]["data"]["value"]["data"]["propMap"][
+                  "HTTPArgument.content_type"
+                ]["data"]["value"]
+              : "text/plain",
+          always_encode:
+            variabledata[variable]["data"]["value"]["data"]["propMap"][
+              "HTTPArgument.always_encode"
+            ]["data"]["value"],
+          use_equals:
+            variabledata[variable]["data"]["value"]["data"]["propMap"][
+              "HTTPArgument.use_equals"
+            ]["data"]["value"],
+          edit_name: false,
+          edit_value: false,
+          edit_contenttype: false,
+          index: variable
+        };
+      }
+    },
+    opendetail() {
+      if (!this.isEmptyObject(this.currowdata)) {
+        this.dialogTableVisible = true;
+        //将当前行取消高亮
+        this.$refs.valuetable.setCurrentRow(null);
+      }
+    },
+    getcurrowdata(row, column, event) {
+      //高亮当前行
+      this.currowdata = row;
+      this.$refs.valuetable.setCurrentRow(row);
+      this.name = row.name;
+      this.data = row.value;
+      console.log(row);
+      //console.log(column)
+    },
+    dblhandleCurrentChange(row, column, cell, event) {
+      if (column.label == "Name:") {
+        row.edit_name = true;
+      } else if (column.label == "Value") {
+        row.edit_value = true;
+      } else {
+        row.edit_contenttype = true;
+      }
+    },
+    getcurrowfiledata(row, column, event) {
+      //高亮当前行
+      this.currowfiledata = row;
+      this.$refs.filetable.setCurrentRow(row);
+      //console.log(column)
+    },
+    dblhandlefileCurrentChange(row, column, cell, event) {
+      if (column.label == "File Path") {
+        row.edit_filepath = true;
+      } else if (column.label == "Parameter Name") {
+        row.edit_paramname = true;
+      } else {
+        row.edit_mimetype = true;
+      }
+    },
+    handleedit(index, row) {
+      console.log(index);
+      console.log(row);
+    },
+    inputblur(row, event, column) {
+      let tableD = this.userdefinedlist;
+      tableD.forEach(function(item) {
+        item.edit_name = false;
+        item.edit_value = false;
+        item.edit_description = false;
+      });
+    },
+    inputfileblur(row, event, column) {
+      let tableD = this.filelist;
+      tableD.forEach(function(item) {
+        item.edit_filepath = false;
+        item.edit_paramname = false;
+        item.edit_mimetype = false;
+      });
+    },
+    addvaluerow(event) {
+      var data = {
+        name: "",
+        value: "",
+        contenttype: "text/plain",
+        edit_name: false,
+        edit_value: false,
+        edit_contenttype: false,
+        always_encode: false,
+        use_equals: false,
+        index: this.userdefinedlist.length
+      };
+      //添加到最后一行
+      this.userdefinedlist.push(data);
+    },
+    delvaluerow(event) {
+      //删除当前选中行
+      if (!this.isEmptyObject(this.currowdata)) {
+        //将本行删除
+        for (var rowindex in this.userdefinedlist) {
+          if (rowindex == this.currowdata["index"]) {
+            this.userdefinedlist.splice(rowindex, 1);
+            //将当前行置为空
+            this.currowdata = {};
+            //调整index
+            for (var i = rowindex; i < this.userdefinedlist.length; i++) {
+              this.userdefinedlist[i]["index"] = i;
             }
+            break;
           }
         }
-        console.log(this.filelist);
-      },
-      changeorder(ordertype, event) {
-        //变更顺序
-        if (!this.isEmptyObject(this.currowdata)) {
-          //如果没有选中不变更
-          if (ordertype == "up") {
-            if (this.currowdata["index"] - 1 >= 0) {
-              //如果不是第一个，将前一个的值与当前行的值进行交换
-              var index = parseInt(this.currowdata["index"]) - 1;
-              //交换值
-              var swapdata = this.userdefinedlist[index];
-              this.userdefinedlist[index] = this.userdefinedlist[
-                this.currowdata["index"]
-              ];
-              this.userdefinedlist[index]["index"] = index;
-              this.userdefinedlist[index + 1] = swapdata;
-              this.userdefinedlist[index + 1]["index"] = index + 1;
-              this.currowdata["index"] = index;
+      }
+      console.log(this.userdefinedlist);
+    },
+    addfilevaluerow(event) {
+      var data = {
+        filepath: "",
+        paramname: "",
+        mimetype: "",
+        edit_filepath: false,
+        edit_paramname: false,
+        edit_mimetype: false,
+        index: this.filelist.length
+      };
+      //添加到最后一行
+      this.filelist.push(data);
+    },
+    delfilevaluerow(event) {
+      //删除当前选中行
+      if (!this.isEmptyObject(this.currowfiledata)) {
+        //将本行删除
+        for (var rowindex in this.filelist) {
+          if (rowindex == this.currowfiledata["index"]) {
+            this.filelist.splice(rowindex, 1);
+            //将当前行置为空
+            this.currowdata = {};
+            //调整index
+            for (var i = rowindex; i < this.filelist.length; i++) {
+              this.filelist[i]["index"] = i;
             }
-          } else {
-            //如果不是最后一个
-            if (this.currowdata["index"] + 1 < this.userdefinedlist.length) {
-              var index = parseInt(this.currowdata["index"]) + 1;
-              //交换值
-              var swapdata = this.userdefinedlist[index];
-              this.userdefinedlist[index] = this.userdefinedlist[
-                this.currowdata["index"]
-              ];
-              this.userdefinedlist[index]["index"] = index;
-              this.userdefinedlist[index - 1] = swapdata;
-              this.userdefinedlist[index - 1]["index"] = index - 1;
-              this.currowdata["index"] = index;
-            }
+            break;
           }
         }
-      },
-      commitdata() {
-        this.pagedata["data"]["propMap"]["TestElement.name"] = this.elementname;
-        if (this.pagedata["data"]["propMap"]["TestPlan.comments"] != undefined) {
-          this.pagedata["data"]["propMap"]["TestPlan.comments"]["data"][
-            "value"
-          ] = this.comments;
+      }
+      console.log(this.filelist);
+    },
+    changeorder(ordertype, event) {
+      //变更顺序
+      if (!this.isEmptyObject(this.currowdata)) {
+        //如果没有选中不变更
+        if (ordertype == "up") {
+          if (this.currowdata["index"] - 1 >= 0) {
+            //如果不是第一个，将前一个的值与当前行的值进行交换
+            var index = parseInt(this.currowdata["index"]) - 1;
+            //交换值
+            var swapdata = this.userdefinedlist[index];
+            this.userdefinedlist[index] = this.userdefinedlist[
+              this.currowdata["index"]
+            ];
+            this.userdefinedlist[index]["index"] = index;
+            this.userdefinedlist[index + 1] = swapdata;
+            this.userdefinedlist[index + 1]["index"] = index + 1;
+            this.currowdata["index"] = index;
+          }
         } else {
-          this.pagedata["data"]["propMap"]["TestPlan.comments"] = {
-            type: "org.apache.jmeter.testelement.property.StringProperty",
+          //如果不是最后一个
+          if (this.currowdata["index"] + 1 < this.userdefinedlist.length) {
+            var index = parseInt(this.currowdata["index"]) + 1;
+            //交换值
+            var swapdata = this.userdefinedlist[index];
+            this.userdefinedlist[index] = this.userdefinedlist[
+              this.currowdata["index"]
+            ];
+            this.userdefinedlist[index]["index"] = index;
+            this.userdefinedlist[index - 1] = swapdata;
+            this.userdefinedlist[index - 1]["index"] = index - 1;
+            this.currowdata["index"] = index;
+          }
+        }
+      }
+    },
+    isEmptyObject(obj) {
+      for (var key in obj) {
+        return false; //返回false，不为空对象
+      }
+      return true; //返回true，为空对象
+    },
+    updaterowdata() {
+      let index = this.currowdata.index;
+      this.userdefinedlist[index].name = this.name;
+      this.data = this.$refs.markdowneditor.getMarkDownValue();
+      this.userdefinedlist[index].value = this.data;
+      console.log(this.userdefinedlist);
+    },
+    getPrevRowdata() {
+      //获取上一行的
+      if (parseInt(this.currowdata.index) != 0) {
+        let newindex = parseInt(this.currowdata.index) - 1;
+        this.name = this.userdefinedlist[newindex + ""].name;
+        this.data = this.userdefinedlist[newindex + ""].value;
+        this.currowdata = this.userdefinedlist[newindex + ""];
+      }
+    },
+    getNextRowdata() {
+      if (parseInt(this.currowdata.index) != this.userdefinedlist.length - 1) {
+        let newindex = parseInt(this.currowdata.index) + 1;
+        this.name = this.userdefinedlist[newindex + ""].name;
+        this.data = this.userdefinedlist[newindex + ""].value;
+        this.currowdata = this.userdefinedlist[newindex + ""];
+      }
+    },
+    closeDetail() {
+      this.dialogTableVisible = false;
+      this.currowdata = undefined;
+      this.name = undefined;
+      this.data = undefined;
+    },
+    commitdata() {
+      this.pagedata["data"]["propMap"]["TestElement.name"] = this.elementname;
+      if (this.pagedata["data"]["propMap"]["TestPlan.comments"] != undefined) {
+        this.pagedata["data"]["propMap"]["TestPlan.comments"]["data"][
+          "value"
+        ] = this.comments;
+      } else {
+        this.pagedata["data"]["propMap"]["TestPlan.comments"] = {
+          type: "org.apache.jmeter.testelement.property.StringProperty",
+          data: {
+            value: this.comments,
+            name: "TestPlan.comments"
+          }
+        };
+      }
+      //取出协议名称
+      this.pagedata["data"]["propMap"]["HTTPSampler.protocol"]["data"][
+        "value"
+      ] = this.protocol;
+      //取出domain
+      this.pagedata["data"]["propMap"]["HTTPSampler.domain"]["data"][
+        "value"
+      ] = this.webservernameorip;
+      this.pagedata["data"]["propMap"]["HTTPSampler.port"]["data"][
+        "value"
+      ] = this.portnum;
+      this.pagedata["data"]["propMap"]["HTTPSampler.method"]["data"][
+        "value"
+      ] = this.methodtype;
+      this.pagedata["data"]["propMap"]["HTTPSampler.path"]["data"][
+        "value"
+      ] = this.serverpath;
+      this.pagedata["data"]["propMap"]["HTTPSampler.contentEncoding"]["data"][
+        "value"
+      ] = this.encoding;
+
+      for (var key in sendtype_map) {
+        if (this.sendtype.indexOf(sendtype_map[key]) != -1) {
+          this.pagedata["data"]["propMap"][key] = {
+            type: "org.apache.jmeter.testelement.property.BooleanProperty",
             data: {
-              value: this.comments,
-              name: "TestPlan.comments"
+              value: true,
+              name: key
             }
           };
+        } else {
+          if (this.pagedata["data"]["propMap"][key] != undefined) {
+            delete this.pagedata["data"]["propMap"][key];
+          }
         }
+      }
+      //判断是body还是querystring
+      if (this.bodydata != undefined && thi.bodydata.length != 0) {
+        this.pagedata["data"]["propMap"]["HTTPsampler.Arguments"]["data"][
+          "value"
+        ]["data"]["propMap"]["Arguments.arguments"]["data"]["value"][0]["data"][
+          "value"
+        ]["data"]["propMap"]["Argument.value"]["data"]["value"] = this.bodydata;
+        //body5属性置为true
+        this.pagedata["data"]["propMap"]["HTTPSampler.postBodyRaw"] = {
+          type: "org.apache.jmeter.testelement.property.BooleanProperty",
+          data: {
+            value: true,
+            name: "HTTPSampler.postBodyRaw"
+          }
+        };
+      } else {
+        //删除body5属性
+        if (
+          this.pagedata["data"]["propMap"]["HTTPSampler.postBodyRaw"] !=
+          undefined
+        ) {
+          delete this.pagedata["data"]["propMap"]["HTTPSampler.postBodyRaw"];
+        }
+
+        let listdata = [];
         for (var index in this.userdefinedlist) {
-          var usedata = {
+          let data_l = {
             type: "org.apache.jmeter.testelement.property.TestElementProperty",
             data: {
               value: {
-                type: "org.apache.jmeter.config.Argument",
+                type: "org.apache.jmeter.protocol.http.util.HTTPArgument",
                 data: {
                   propMap: {
-                    "Argument.name": {
-                      type: "org.apache.jmeter.testelement.property.StringProperty",
+                    "HTTPArgument.always_encode": {
+                      type:
+                        "org.apache.jmeter.testelement.property.BooleanProperty",
                       data: {
-                        value: this.userdefinedlist[index].name,
-                        name: "Argument.name"
+                        value: this.userdefinedlist[index].always_encode,
+                        name: "HTTPArgument.always_encode"
                       }
                     },
                     "Argument.value": {
-                      type: "org.apache.jmeter.testelement.property.StringProperty",
+                      type:
+                        "org.apache.jmeter.testelement.property.StringProperty",
                       data: {
                         value: this.userdefinedlist[index].value,
                         name: "Argument.value"
                       }
                     },
                     "Argument.metadata": {
-                      type: "org.apache.jmeter.testelement.property.StringProperty",
+                      type:
+                        "org.apache.jmeter.testelement.property.StringProperty",
                       data: {
                         value: "=",
                         name: "Argument.metadata"
+                      }
+                    },
+                    "HTTPArgument.use_equals": {
+                      type:
+                        "org.apache.jmeter.testelement.property.BooleanProperty",
+                      data: {
+                        value: this.userdefinedlist[index].use_equals,
+                        name: "HTTPArgument.use_equals"
+                      }
+                    },
+                    "Argument.name": {
+                      type:
+                        "org.apache.jmeter.testelement.property.StringProperty",
+                      data: {
+                        value: this.userdefinedlist[index].name,
+                        name: "Argument.name"
+                      }
+                    },
+                    "HTTPArgument.content_type": {
+                      type:
+                        "org.apache.jmeter.testelement.property.StringProperty",
+                      data: {
+                        value: this.userdefinedlist[index].contenttype,
+                        name: "HTTPArgument.content_type"
                       }
                     }
                   }
@@ -693,119 +906,331 @@
               name: this.userdefinedlist[index].name
             }
           };
-          if (this.userdefinedlist[index].description != "") {
-            usedata["data"]["value"]["data"]["propMap"]["Argument.desc"] = {
-              type: "org.apache.jmeter.testelement.property.StringProperty",
-              data: {
-                value: this.userdefinedlist[index].description,
-                name: "Argument.desc"
-              }
-            };
-          }
-          listdata.push(usedata);
+          listdata.push(data_l);
         }
-        this.pagedata["data"]["propMap"]["Arguments.arguments"]["data"][
+        this.pagedata["data"]["propMap"]["HTTPsampler.Arguments"]["data"][
           "value"
-        ] = listdata;
-        this.$emit("refreshNodeData", this.pagedata);
-      },
-      isEmptyObject(obj) {
-        for (var key in obj) {
-          return false; //返回false，不为空对象
-        }
-        return true; //返回true，为空对象
-      },
-      updaterowdata() {
-        let index = this.currowdata.index;
-        this.userdefinedlist[index].name = this.name;
-        this.data = this.$refs.markdowneditor.getMarkDownValue();
-        this.userdefinedlist[index].value = this.data;
-        console.log(this.userdefinedlist);
-      },
-      getPrevRowdata() {
-        //获取上一行的
-        if (parseInt(this.currowdata.index) != 0) {
-          let newindex = parseInt(this.currowdata.index) - 1;
-          this.name = this.userdefinedlist[newindex + ""].name;
-          this.data = this.userdefinedlist[newindex + ""].value;
-          this.currowdata = this.userdefinedlist[newindex + ""];
-        }
-      },
-      getNextRowdata() {
-        if (parseInt(this.currowdata.index) != this.userdefinedlist.length - 1) {
-          let newindex = parseInt(this.currowdata.index) + 1;
-          this.name = this.userdefinedlist[newindex + ""].name;
-          this.data = this.userdefinedlist[newindex + ""].value;
-          this.currowdata = this.userdefinedlist[newindex + ""];
-        }
-      },
-      closeDetail() {
-        this.dialogTableVisible = false;
-        this.currowdata = undefined;
-        this.name = undefined;
-        this.data = undefined;
+        ]["data"]["propMap"]["Arguments.arguments"]["data"]["value"] = listdata;
       }
-    },
-    data() {
-      return {
-        input: "HTTP Request",
-        input2: "",
-        input3: "Headers Sorted in the Header Manager",
-        pagedata: {},
-        elementname: "",
-        comments: "",
-        headerdata: [],
-        clientimplementationvalue: "default",
-        Embeddedchecked: "0",
-        select: "IP/Hostname",
-        sourceaddrdata: "",
-        servernameorip: "",
-        proxyHost:"",
-        proxyportnum: "",
-        proxyuser: "",
-        encoding: "",
-        proxypwd: "",
-        protocol: "",
-        urlrematch:"",
-        domain: "",
-        webservernameorip: "",
-        portnum: "",
-        methodtype: "get",
-        serverpath: "",
-        sendtype: [],
-        userdefinedlist: [],
-        bodydata: "",
-        dialogTableVisible: false,
-        name: "",
-        data: "",
-        currowdata: {},
-        bodycanedit: false,
-        paramdatacanedit: false,
-        tabpos: "1",
-        filelist: [],
-        md5value:false,
-        conncttime:"",
-        Responsetime:""
-      };
-    },
-    components: {
-      "mark-down": markdown
-    }
-  };
+      if (this.filelist.length != 0) {
+        if (
+          this.pagedata["data"]["propMap"]["HTTPsampler.Files"] == undefined
+        ) {
+          this.pagedata["data"]["propMap"]["HTTPsampler.Files"] = {
+            type: "org.apache.jmeter.testelement.property.TestElementProperty",
+            data: {
+              value: {
+                type: "org.apache.jmeter.protocol.http.util.HTTPFileArgs",
+                data: {
+                  propMap: {
+                    "HTTPFileArgs.files": {
+                      type:
+                        "org.apache.jmeter.testelement.property.CollectionProperty",
+                      data: {
+                        value: [],
+                        name: "HTTPFileArgs.files"
+                      }
+                    }
+                  }
+                }
+              },
+              name: "HTTPsampler.Files"
+            }
+          };
+        }
+        let listdata = [];
+        for (var index in this.filelist) {
+          var data_l = {
+            value: {
+              type: "org.apache.jmeter.protocol.http.util.HTTPFileArg",
+              data: {
+                propMap: {
+                  "File.path": {
+                    type:
+                      "org.apache.jmeter.testelement.property.StringProperty",
+                    data: {
+                      value: this.filelist[index].filepath,
+                      name: "File.path"
+                    }
+                  },
+                  "File.paramname": {
+                    type:
+                      "org.apache.jmeter.testelement.property.StringProperty",
+                    data: {
+                      value: this.filelist[index].paramname,
+                      name: "File.paramname"
+                    }
+                  },
+                  "File.mimetype": {
+                    type:
+                      "org.apache.jmeter.testelement.property.StringProperty",
+                    data: {
+                      value: this.filelist[index].mimetype,
+                      name: "File.mimetype"
+                    }
+                  }
+                }
+              }
+            },
+            name: this.filelist[index].filepath
+          };
+          listdata.push(data_l);
+        }
+        this.pagedata["data"]["propMap"]["HTTPsampler.Files"]["data"]["value"][
+          "data"
+        ]["propMap"]["HTTPFileArgs.files"]["data"]["value"] = listdata;
+      } else {
+        if (
+          this.pagedata["data"]["propMap"]["HTTPsampler.Files"] != undefined
+        ) {
+          delete this.pagedata["data"]["propMap"]["HTTPsampler.Files"];
+        }
+      }
 
+      if (this.md5value) {
+        this.pagedata["data"]["propMap"]["HTTPSampler.md5"] = {
+          type: "org.apache.jmeter.testelement.property.BooleanProperty",
+          data: {
+            value: true,
+            name: "HTTPSampler.md5"
+          }
+        };
+      } else {
+        if (this.pagedata["data"]["propMap"]["HTTPSampler.md5"] != undefined) {
+          delete this.pagedata["data"]["propMap"]["HTTPSampler.md5"];
+        }
+      }
+      if (this.clientimplementationvalue != "default") {
+        this.pagedata["data"]["propMap"]["HTTPSampler.implementation"] = {
+          type: "org.apache.jmeter.testelement.property.StringProperty",
+          data: {
+            value: this.clientimplementationvalue,
+            name: "HTTPSampler.implementation"
+          }
+        };
+      } else {
+        if (
+          this.pagedata["data"]["propMap"]["HTTPSampler.implementation"] !=
+          undefined
+        ) {
+          delete this.pagedata["data"]["propMap"]["HTTPSampler.implementation"];
+        }
+      }
+      this.pagedata["data"]["propMap"]["HTTPSampler.connect_timeout"]["data"][
+        "value"
+      ] = this.conncttime;
+      this.pagedata["data"]["propMap"]["HTTPSampler.response_timeout"]["data"][
+        "value"
+      ] = this.Responsetime;
+      if (this.proxyHost.length != 0) {
+        this.pagedata["data"]["propMap"]["HTTPSampler.proxyHost"] = {
+          type: "org.apache.jmeter.testelement.property.StringProperty",
+          data: {
+            value: this.proxyHost,
+            name: "HTTPSampler.proxyHost"
+          }
+        };
+      } else {
+        if (
+          this.pagedata["data"]["propMap"]["HTTPSampler.proxyHost"] != undefined
+        ) {
+          delete this.pagedata["data"]["propMap"]["HTTPSampler.proxyHost"];
+        }
+      }
+      if (this.proxyportnum.length != 0) {
+        this.pagedata["data"]["propMap"]["HTTPSampler.proxyPort"] = {
+          type: "org.apache.jmeter.testelement.property.StringProperty",
+          data: {
+            value: this.proxyportnum,
+            name: "HTTPSampler.proxyPort"
+          }
+        };
+      } else {
+        if (
+          this.pagedata["data"]["propMap"]["HTTPSampler.proxyPort"] != undefined
+        ) {
+          delete this.pagedata["data"]["propMap"]["HTTPSampler.proxyPort"];
+        }
+      }
+      if (this.proxyuser.length != 0) {
+        this.pagedata["data"]["propMap"]["HTTPSampler.proxyUser"] = {
+          type: "org.apache.jmeter.testelement.property.StringProperty",
+          data: {
+            value: this.proxyuser,
+            name: "HTTPSampler.proxyUser"
+          }
+        };
+      } else {
+        if (
+          this.pagedata["data"]["propMap"]["HTTPSampler.proxyUser"] != undefined
+        ) {
+          delete this.pagedata["data"]["propMap"]["HTTPSampler.proxyUser"];
+        }
+      }
+      if (this.proxypwd.length != 0) {
+        this.pagedata["data"]["propMap"]["HTTPSampler.proxyPass"] = {
+          type: "org.apache.jmeter.testelement.property.StringProperty",
+          data: {
+            value: this.proxypwd,
+            name: "HTTPSampler.proxyPass"
+          }
+        };
+      } else {
+        if (
+          this.pagedata["data"]["propMap"]["HTTPSampler.proxyPass"] != undefined
+        ) {
+          delete this.pagedata["data"]["propMap"]["HTTPSampler.proxyPass"];
+        }
+      }
+      if (this.sourceaddrdata.length != 0) {
+        this.pagedata["data"]["propMap"]["HTTPSampler.ipSource"] = {
+          type: "org.apache.jmeter.testelement.property.StringProperty",
+          data: {
+            value: this.sourceaddrdata,
+            name: "HTTPSampler.ipSource"
+          }
+        };
+      } else {
+        if (
+          this.pagedata["data"]["propMap"]["HTTPSampler.ipSource"] != undefined
+        ) {
+          delete this.pagedata["data"]["propMap"]["HTTPSampler.ipSource"];
+        }
+      }
+
+      this.pagedata["data"]["propMap"]["HTTPSampler.embedded_url_re"]["data"][
+        "value"
+      ] = this.urlrematch;
+
+      if (this.select != "IP/Hostname") {
+        this.pagedata["data"]["propMap"]["HTTPSampler.ipSourceType"] = {
+          type: "org.apache.jmeter.testelement.property.StringProperty",
+          data: {
+            value: this.select,
+            name: "HTTPSampler.ipSourceType"
+          }
+        };
+      } else {
+        if (
+          this.pagedata["data"]["propMap"]["HTTPSampler.ipSourceType"] !=
+          undefined
+        ) {
+          delete this.pagedata["data"]["propMap"]["HTTPSampler.ipSourceType"];
+        }
+      }
+      if (this.image_parser) {
+        this.pagedata["data"]["propMap"]["HTTPSampler.image_parser"] = {
+          type: "org.apache.jmeter.testelement.property.BooleanProperty",
+          data: {
+            value: true,
+            name: "HTTPSampler.image_parser"
+          }
+        };
+      } else {
+        if (
+          this.pagedata["data"]["propMap"]["HTTPSampler.image_parser"] !=
+          undefined
+        ) {
+          delete this.pagedata["data"]["propMap"]["HTTPSampler.image_parser"];
+        }
+      }
+      if (this.concurrentDwn) {
+        this.pagedata["data"]["propMap"]["HTTPSampler.concurrentDwn"] = {
+          type: "org.apache.jmeter.testelement.property.BooleanProperty",
+          data: {
+            value: true,
+            name: "HTTPSampler.concurrentDwn"
+          }
+        };
+      } else {
+        if (
+          this.pagedata["data"]["propMap"]["HTTPSampler.concurrentDwn"] !=
+          undefined
+        ) {
+          delete this.pagedata["data"]["propMap"]["HTTPSampler.concurrentDwn"];
+        }
+      }
+
+      if (this.concurrentPool.length != 0) {
+        this.pagedata["data"]["propMap"]["HTTPSampler.concurrentPool"] = {
+          type: "org.apache.jmeter.testelement.property.StringProperty",
+          data: {
+            value: this.concurrentPool,
+            name: "HTTPSampler.concurrentPool"
+          }
+        };
+      } else {
+        if (
+          this.pagedata["data"]["propMap"]["HTTPSampler.concurrentPool"] !=
+          undefined
+        ) {
+          delete this.pagedata["data"]["propMap"]["HTTPSampler.concurrentPool"];
+        }
+      }
+    }
+  },
+  data() {
+    return {
+      input: "HTTP Request",
+      input2: "",
+      input3: "Headers Sorted in the Header Manager",
+      pagedata: {},
+      elementname: "",
+      comments: "",
+      headerdata: [],
+      clientimplementationvalue: "default",
+      Embeddedchecked: "0",
+      select: "IP/Hostname",
+      sourceaddrdata: "",
+      servernameorip: "",
+      proxyHost: "",
+      proxyportnum: "",
+      proxyuser: "",
+      encoding: "",
+      proxypwd: "",
+      protocol: "",
+      urlrematch: "",
+      domain: "",
+      webservernameorip: "",
+      portnum: "",
+      methodtype: "get",
+      serverpath: "",
+      sendtype: [],
+      userdefinedlist: [],
+      bodydata: "",
+      dialogTableVisible: false,
+      name: "",
+      data: "",
+      currowdata: {},
+      bodycanedit: false,
+      paramdatacanedit: false,
+      tabpos: "1",
+      filelist: [],
+      md5value: false,
+      conncttime: "",
+      Responsetime: "",
+      concurrentPool: "6",
+      concurrentDwn: false,
+      image_parser: false
+    };
+  },
+  components: {
+    "mark-down": markdown
+  }
+};
 </script>
 <style scoped>
-  .el-header {
-    font-size: 1.5em;
-    text-align: left;
-    font-weight: bold;
-    margin-top: 0.5em;
-  }
+.el-header {
+  font-size: 1.5em;
+  text-align: left;
+  font-weight: bold;
+  margin-top: 0.5em;
+}
 
-  div .baseproperty {}
+div .baseproperty {
+}
 
-  div .testelementproperty {
-    text-align: left;
-  }
-
+div .testelementproperty {
+  text-align: left;
+}
 </style>
