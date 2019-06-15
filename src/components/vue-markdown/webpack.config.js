@@ -1,14 +1,15 @@
 var path = require('path')
 var webpack = require('webpack')
 const NODE_ENV = process.env.NODE_ENV;
+console.log(NODE_ENV)
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 
 module.exports = {
-  entry: NODE_ENV==='npm'?'./src/index.js':'./src/main.js',
+  entry:'./src/index.js',
   output: {
-    path: path.resolve(__dirname, NODE_ENV==='npm'?'./build':'./dist'),
-    publicPath:NODE_ENV==='npm'? '/build/':'/dist/',
-    filename: NODE_ENV==='npm'?'index.js':'build.js',
+    path: path.resolve(__dirname, './build'),
+    publicPath:'/build/',
+    filename: 'index.js',
     libraryTarget: 'umd',
     library: 'markdown-vue',
     umdNamedDefine: true

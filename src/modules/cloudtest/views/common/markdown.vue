@@ -1,5 +1,12 @@
 <template>
-  <mavon-editor :initialValue="initvalue" theme="GitHub" :toolbars="toolbars" mode="3" ref="mavon"/>
+  <mavon-editor
+    :initialValue="initvalue"
+    theme="GitHub"
+    :toolbars="toolbars"
+    mode="3"
+    ref="mavon"
+    v-model="currentvalue"
+  />
 </template>
 
 <script>
@@ -8,7 +15,7 @@ export default {
   data() {
     return {
       mode: 3,
-      value: "",
+      currentvalue: this.value,
       toolbars: {
         strong: false, // 粗体
         italic: false, // 斜体
@@ -51,11 +58,20 @@ export default {
     initvalue: {
       type: String,
       default: ""
+    },
+    value: {
+      type: String,
+      default: ""
     }
   },
   methods: {
     getMarkDownValue() {
       return this.$refs.mavon.value;
+    }
+  },
+  watch: {
+    currentvalue(val) {
+      this.$emit("input", this.currentvalue);
     }
   }
 };
