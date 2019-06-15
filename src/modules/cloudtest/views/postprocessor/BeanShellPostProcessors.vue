@@ -15,6 +15,7 @@
         :filename="filename"
         :parameters="parameters"
         :scriptdata="scriptdata"
+        ref="beanshell"
       ></bean-shell>
     </el-main>
   </el-container>
@@ -25,7 +26,7 @@ import BeanShell from "../common/BeanShell";
 export default {
   props: {
     content: {
-      type: String,
+      type: Object,
       required: true
     }
   },
@@ -49,8 +50,7 @@ export default {
       //var urldata = this.$route.query
       //this.pagedata = JSON.parse(urldata.content)
       // props获取来自父控件的数据
-      console.log(this.content);
-      this.pagedata = JSON.parse(this.content);
+      this.pagedata = this.content.content;
 
       this.elementname = this.pagedata["data"]["propMap"]["TestElement.name"][
         "data"
@@ -80,6 +80,43 @@ export default {
         this.resetInterpreter = "True";
       }
       console.log(this.resetInterpreter);
+    },
+    commitdata() {
+      this.pagedata["data"]["propMap"]["TestElement.name"]["data"][
+        "value"
+      ] = this.elementname;
+      if (this.pagedata["data"]["propMap"]["TestPlan.comments"] == undefined) {
+        if (this.comments != "") {
+          this.pagedata["data"]["propMap"]["TestPlan.comments"] = {
+            type: "org.apache.jmeter.testelement.property.StringProperty",
+            data: {
+              value: this.comments,
+              name: "TestPlan.comments"
+            }
+          };
+        }
+      } else {
+        if (this.comments != "") {
+          this.pagedata["data"]["propMap"]["TestPlan.comments"]["data"][
+            "value"
+          ] = this.comments;
+        } else {
+          delete this.pagedata["data"]["propMap"]["TestPlan.comments"];
+        }
+      }
+      this.pagedata["data"]["propMap"]["parameters"]["data"][
+        "value"
+      ] = this.$refs.beanshell.getparameters();
+      this.pagedata["data"]["propMap"]["filename"]["data"][
+        "value"
+      ] = this.$refs.beanshell.getscriptname();
+      this.pagedata["data"]["propMap"]["script"]["data"][
+        "value"
+      ] = this.$refs.beanshell.getscriptdata();
+      this.pagedata["data"]["propMap"]["resetInterpreter"]["data"][
+        "value"
+      ] = this.$refs.beanshell.getresetinterpreterflag();
+      this.$emit("refreshNodeData", this.pagedata);
     }
   },
   components: {
@@ -94,6 +131,12 @@ export default {
 </script>
 
 <style scoped>
+.el-header {
+  font-size: 1.5em;
+  text-align: left;
+  font-weight: bold;
+  margin-top: 0.5em;
+}
 .el-main {
   margin-top: 10px;
 }

@@ -27,7 +27,7 @@
       <legend>{{input5}}</legend>
       <label text-align="center" width="100%">Script:</label>
       <div>
-        <markdown-editor style="width:100%;margin-top:10px" :value="script"></markdown-editor>
+        <markdown-editor style="width:100%;margin-top:10px" :initvalue="script" ref="markdown"></markdown-editor>
       </div>
     </fieldset>
   </div>
@@ -74,6 +74,24 @@ export default {
     this.scriptfilename = this.filename;
     this.params = this.parameters;
     this.script = this.scriptdata;
+  },
+  methods: {
+    getscriptdata() {
+      return this.$refs.markdown.getMarkDownValue();
+    },
+    getscriptname() {
+      return this.scriptfilename;
+    },
+    getparameters() {
+      return this.params;
+    },
+    getresetinterpreterflag() {
+      if (this.resetinterpreter == "True") {
+        return true;
+      } else {
+        return false;
+      }
+    }
   },
   components: {
     "markdown-editor": markdown

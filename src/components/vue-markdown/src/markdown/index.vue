@@ -94,10 +94,6 @@
       <li v-if="tools.shift&&preview==1" name="预览">
         <span @click="preview=2" class="iconfont icon-preview"></span>
       </li>
-      <li :name="scrolling?'同步滚动:开':'同步滚动:关'">
-        <span @click="scrolling=!scrolling" v-show="scrolling"  class="iconfont icon-on"></span>
-        <span @click="scrolling=!scrolling" v-show="!scrolling" class="iconfont icon-off"></span>
-      </li>
       <li class="empty"></li>
 
       <li v-if="tools.fullscreen&&!isFullscreen" name="全屏">

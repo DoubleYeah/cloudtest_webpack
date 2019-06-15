@@ -23,6 +23,9 @@ marked.setOptions({
 
 export default {
   name: 'markdown',
+  model:{
+	  props:"currentvalue"
+  },
   props: {
     initialValue: String, // 初始化内容
     theme: { // 默认主题
@@ -54,15 +57,19 @@ export default {
     exportFileName: { // 默认导出文件名称
       type: String,
       default: '未命名文件'
-    }
+    },
+	currentvalue:{
+	  type: String,
+	  default:""
+	}
   },
   data() {
     return {
-      value: '', // 输入框内容
+	  value:'',
       timeoutId: null,
       indexLenth: 100,
       html: '',
-      preview: 1, // 是否是预览状态
+      preview: 3, // 是否是预览状态
       isFullscreen: false, // 是否是全屏
       scrollHeight: null,
       scroll: 'markdown', // 哪个半栏在滑动
@@ -71,7 +78,7 @@ export default {
       timerId: null, // 定时器id
       themeSlideDown: false,
       imgs: [],
-      scrolling: true, // 同步滚动
+      scrolling: false, // 同步滚动
       editorHeight: '',
       editorWidth: '',
       previewImgModal: false,
@@ -459,6 +466,7 @@ export default {
       this.scrollHeight = Math.max(height1, height2, height3);
       this.indexLenth = parseInt(this.scrollHeight / 22, 0) - 1;
       this.addImageClickLintener();
+	  this.$emit("input",this.value)
     },
     theme() {
       this.themeName = this.theme;

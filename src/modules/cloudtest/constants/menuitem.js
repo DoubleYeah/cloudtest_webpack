@@ -1,7 +1,8 @@
 /**
  * 菜单物件定义
  */
-function click_Fake() {
+function click_Fake(menu, menuitem, itemcount) {
+  console.log(menu)
   console.log("hello world")
 }
 
@@ -414,7 +415,9 @@ var insertitem = {
 }
 
 function initfirstmenu() {
-  var TestPlan_AddItem = add_item
+  var TestPlan_AddItem = {
+    text: '添加',
+  }
   TestPlan_AddItem["children"] = [thread_item, {
     line: true
   }, config_item, listen_item, {
@@ -438,7 +441,9 @@ function initfirstmenu() {
 }
 
 function initsecondmenu() {
-  var sampler_AddItem = add_item
+  var sampler_AddItem = {
+    text: '添加',
+  }
   sampler_AddItem["children"] = [sampler_item, {
     line: true
   }, logic_item, {
@@ -466,7 +471,9 @@ function initsecondmenu() {
 }
 
 function initthirdmenu() {
-  var sampler_AddItem = add_item
+  var sampler_AddItem = {
+    text: '添加',
+  }
   sampler_AddItem["children"] = [assertion_item, {
     line: true
   }, timer_item, {

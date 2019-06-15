@@ -34,6 +34,7 @@ export default {
   },
   methods: {
     init() {
+      console.log(this.content);
       this.menuItemCount = 0;
       this.menus = {};
       this.menu = this.createMenu();
@@ -162,12 +163,12 @@ export default {
       item.click &&
         ditem.click(function() {
           if ($(this).hasClass("l-menu-item-disable")) return;
-          item.click(item, itemcount);
+          item.click(p, item, itemcount);
         });
       item.dblclick &&
         ditem.dblclick(function() {
           if ($(this).hasClass("l-menu-item-disable")) return;
-          item.dblclick(item, itemcount);
+          item.dblclick(p, item, itemcount);
         });
 
       var menuover = $("> .l-menu-over:first", menu);
@@ -239,6 +240,9 @@ export default {
       if (parentMenuItemID) this.menus[parentMenuItemID] = menu;
       else this.menus[0] = menu;
       return menu;
+    },
+    setCallElement(callelement) {
+      this.callelement = callelement;
     }
   }
 };

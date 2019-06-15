@@ -80,7 +80,10 @@
 </template>
 
 <script>
-  import {assertion_rule_map,assertion_rule_check_map} from "../../constants/constants.js"
+  import {
+    assertion_rule_map,
+    assertion_rule_check_map
+  } from "../../constants/constants.js"
   export default {
     props: {
       content: {
@@ -102,9 +105,9 @@
         assume_success: false,
         test_string_list: [],
         currowdata: {},
-        test_nor:false,
-        test_or:false,
-        test_type:"16",
+        test_nor: false,
+        test_or: false,
+        test_type: "16",
       };
     },
     mounted() {
@@ -120,7 +123,7 @@
         //this.pagedata = JSON.parse(urldata.content)
         // props获取来自父控件的数据
         console.log(this.content);
-        this.pagedata = JSON.parse(this.content);
+        this.pagedata = this.content.content;
         this.elementname = this.pagedata["data"]["propMap"]["TestElement.name"][
           "data"
         ]["value"];
@@ -174,34 +177,34 @@
           console.log(this.test_string_list)
 
         }
-        if(this.pagedata["data"]["propMap"]["Assertion.test_type"]!= undefined){
-           this.initmatchrule(this.pagedata["data"]["propMap"]["Assertion.test_type"]["data"]["value"])
+        if (this.pagedata["data"]["propMap"]["Assertion.test_type"] != undefined) {
+          this.initmatchrule(this.pagedata["data"]["propMap"]["Assertion.test_type"]["data"]["value"])
         }
       },
-      initmatchrule(data){
-        for(var key in assertion_rule_map){
-          if(assertion_rule_map[key]!=data){
-            var nor_data=assertion_rule_check_map["nor"]
-            var or_data=assertion_rule_check_map["or"]
-            if(nor_data+assertion_rule_map[key]==data){
-              this.test_type=assertion_rule_map[key]
-              this.test_nor=true
+      initmatchrule(data) {
+        for (var key in assertion_rule_map) {
+          if (assertion_rule_map[key] != data) {
+            var nor_data = assertion_rule_check_map["nor"]
+            var or_data = assertion_rule_check_map["or"]
+            if (nor_data + assertion_rule_map[key] == data) {
+              this.test_type = assertion_rule_map[key]
+              this.test_nor = true
               break
-            }else if(or_data+assertion_rule_map[key]==data){
-              this.test_type=assertion_rule_map[key]
-              this.test_or=true
+            } else if (or_data + assertion_rule_map[key] == data) {
+              this.test_type = assertion_rule_map[key]
+              this.test_or = true
               break
-            }else if(or_data+nor_data+assertion_rule_map[key]==data){
-              this.test_type=assertion_rule_map[key]
-              this.test_or=true
-              this.test_nor=true
+            } else if (or_data + nor_data + assertion_rule_map[key] == data) {
+              this.test_type = assertion_rule_map[key]
+              this.test_or = true
+              this.test_nor = true
               break
             }
-          }else{
-            this.test_type=assertion_rule_map[key]
+          } else {
+            this.test_type = assertion_rule_map[key]
           }
         }
-        this.test_type=this.test_type+""
+        this.test_type = this.test_type + ""
         console.log(this.test_type)
 
       },
@@ -227,7 +230,7 @@
       },
       addvaluerow(event) {
         //生成随机5位数的name
-        var name=Math.floor(Math.random() * (100000 - 10000)) + 10000
+        var name = Math.floor(Math.random() * (100000 - 10000)) + 10000
         var data = {
           "type": "org.apache.jmeter.testelement.property.StringProperty",
           "data": {
@@ -245,16 +248,16 @@
         if (!this.isEmptyObject(this.currowdata)) {
           //将本行删除
           for (var rowindex in this.test_string_list) {
-              if (rowindex == this.currowdata["index"]) {
-                this.test_string_list.splice(rowindex, 1)
-                //将当前行置为空
-                this.currowdata = {}
-                //调整index
-                for (var i = rowindex; i < this.test_string_list.length; i++) {
-                  this.test_string_list[i]["index"] = i
-                }
-                break
+            if (rowindex == this.currowdata["index"]) {
+              this.test_string_list.splice(rowindex, 1)
+              //将当前行置为空
+              this.currowdata = {}
+              //调整index
+              for (var i = rowindex; i < this.test_string_list.length; i++) {
+                this.test_string_list[i]["index"] = i
               }
+              break
+            }
           }
 
         }
@@ -275,15 +278,20 @@
 </script>
 
 <style scoped>
+  .el-header {
+    font-size: 1.5em;
+    text-align: left;
+    font-weight: bold;
+    margin-top: 0.5em;
+  }
+
   .el-main {
     margin-top: 10px
   }
 
-  div .baseproperty {
-  }
+  div .baseproperty {}
 
-  div .testelementproperty {
-  }
+  div .testelementproperty {}
 
   fieldset legend {
     text-align: left

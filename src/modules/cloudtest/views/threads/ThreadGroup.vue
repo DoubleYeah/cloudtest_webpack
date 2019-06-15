@@ -94,7 +94,7 @@ export default {
   },
   props: {
     content: {
-      type: String,
+      type: Object,
       required: true
     }
   },
@@ -106,7 +106,7 @@ export default {
       //var urldata = this.$route.query
       //this.pagedata = JSON.parse(urldata.content)
       // props获取来自父控件的数据
-      this.pagedata = JSON.parse(this.content);
+      this.pagedata = this.content.content;
       this.elementname = this.pagedata["data"]["propMap"]["TestElement.name"][
         "data"
       ]["value"];
@@ -161,6 +161,60 @@ export default {
         this.loopdisable = false;
       }
     },
+    commitdata() {
+      this.pagedata["data"]["propMap"]["TestElement.name"]["data"][
+        "value"
+      ] = this.elementname;
+      if (this.pagedata["data"]["propMap"]["TestPlan.comments"] == undefined) {
+        if (this.comments != "") {
+          this.pagedata["data"]["propMap"]["TestPlan.comments"] = {
+            type: "org.apache.jmeter.testelement.property.StringProperty",
+            data: {
+              value: this.comments,
+              name: "TestPlan.comments"
+            }
+          };
+        }
+      } else {
+        if (this.comments != "") {
+          this.pagedata["data"]["propMap"]["TestPlan.comments"]["data"][
+            "value"
+          ] = this.comments;
+        } else {
+          delete this.pagedata["data"]["propMap"]["TestPlan.comments"];
+        }
+      }
+      this.pagedata["data"]["delayedStartup"] = this.delayedStartup;
+      this.pagedata["data"]["propMap"]["ThreadGroup.num_threads"]["data"][
+        "value"
+      ] = this.numthreads;
+      this.pagedata["data"]["propMap"]["ThreadGroup.ramp_time"]["data"][
+        "value"
+      ] = this.ramp_time;
+      this.pagedata["data"]["propMap"]["ThreadGroup.duration"]["data"][
+        "value"
+      ] = this.duration;
+      this.pagedata["data"]["propMap"]["ThreadGroup.delay"]["data"][
+        "value"
+      ] = this.delay;
+      this.pagedata["data"]["propMap"]["ThreadGroup.scheduler"]["data"][
+        "value"
+      ] = this.is_scheduler;
+      this.pagedata["data"]["propMap"]["ThreadGroup.main_controller"]["data"][
+        "value"
+      ]["data"]["propMap"]["LoopController.continue_forever"]["data"][
+        "value"
+      ] = this.forever;
+      this.pagedata["data"]["propMap"]["ThreadGroup.main_controller"]["data"][
+        "value"
+      ]["data"]["propMap"]["LoopController.loops"]["data"][
+        "value"
+      ] = this.loopcount;
+      this.pagedata["data"]["propMap"]["ThreadGroup.on_sample_error"]["data"][
+        "value"
+      ] = this.radio;
+      this.$emit("refreshNodeData", this.pagedata);
+    },
     schedulerselected(data) {
       if (data == true) {
         this.scheduler_selected = false;
@@ -175,6 +229,12 @@ export default {
 </script>
 
 <style scoped>
+.el-header {
+  font-size: 1.5em;
+  text-align: left;
+  font-weight: bold;
+  margin-top: 0.5em;
+}
 .el-main {
   margin-top: 10px;
 }
